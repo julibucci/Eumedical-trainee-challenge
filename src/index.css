@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Book — Identidad Corporativa Eumedical (09/2021) */
+  --color-brand-dark-blue: #1e4865;
+  --color-brand-medium-aqua: #79b19c;
+  --color-brand-light-aqua: #bfd7cd;
+  --color-brand-pale-sage: #d9e4de;
+  --color-brand-orange: #e79f1a;
+  --color-brand-yellow: #efbc0b;
+  --color-brand-grey: #f2f2f2;
+
+  --font-display: "Varela Round", "Segoe UI", sans-serif;
+  --font-heading: "Didact Gothic", "Segoe UI", sans-serif;
+  --font-body: Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-brand-dark-blue font-body antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-brand-dark-blue;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-orange);
+    outline-offset: 2px;
+  }
+}
