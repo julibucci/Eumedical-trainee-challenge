@@ -14,19 +14,19 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
     return (
       <div className="flex flex-col gap-1.5">
-        <div className="flex items-start gap-2">
+        <div className="flex items-start gap-2.5">
           <input
             ref={ref}
             id={inputId}
             type="checkbox"
             aria-invalid={!!error}
             aria-describedby={error ? errorId : undefined}
-            className={`mt-0.5 h-4 w-4 shrink-0 rounded border-gray-300 text-brand-orange ${
+            className={`mt-0.5 h-5 w-5 shrink-0 rounded border-gray-400 text-brand-orange ${
               error ? "ring-2 ring-red-500" : ""
             } ${className}`}
             {...props}
           />
-          <label htmlFor={inputId} className="text-sm text-gray-600">
+          <label htmlFor={inputId} className="text-sm text-gray-700">
             {label}
           </label>
         </div>

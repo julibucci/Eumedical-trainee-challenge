@@ -17,12 +17,12 @@ function MetricItem({ metric, label, startWhen }: { metric: Metric; label: strin
 
   return (
     <div className="text-center">
-      <p className="font-display text-3xl font-bold text-brand-dark-blue sm:text-4xl">
+      <p className="font-display text-5xl font-bold text-brand-dark-blue sm:text-6xl">
         <span className="text-brand-orange">+</span>
         {animatedValue}
         {suffix}
       </p>
-      <p className="mt-1 text-sm text-gray-500">{label}</p>
+      <p className="mt-2 text-base text-gray-500">{label}</p>
     </div>
   );
 }
@@ -34,12 +34,12 @@ export function TrustMetrics() {
   const t = content[language].trustMetrics;
 
   return (
-    <section className="bg-white px-6 py-20 sm:py-24">
+    <section className="bg-white px-6 pb-8 pt-20 sm:pb-10 sm:pt-24">
       <div className="mx-auto max-w-6xl">
-        <h2 className="text-center font-display text-3xl font-bold text-brand-dark-blue sm:text-4xl">{t.title}</h2>
+        <h2 className="text-center font-display text-4xl font-bold text-brand-dark-blue sm:text-5xl">{t.title}</h2>
 
-        <div ref={ref} className="mt-10 rounded-3xl bg-brand-grey p-8 sm:p-10">
-          <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4">
+        <div ref={ref} className="mt-10 rounded-3xl bg-brand-grey p-10 sm:p-14">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
             {trustMetrics.map((metric) => (
               <MetricItem key={metric.id} metric={metric} label={t.metrics[metric.id]} startWhen={isInView} />
             ))}

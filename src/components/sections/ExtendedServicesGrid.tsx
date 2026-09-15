@@ -43,7 +43,7 @@ export function ExtendedServicesGrid() {
   const t = content[language].extendedServicesGrid;
 
   return (
-    <section id="servicios-extendidos" className="bg-brand-grey px-6 py-20 sm:py-24">
+    <section id="servicios-extendidos" className="scroll-mt-24 bg-brand-grey px-6 py-20 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-orange">{t.eyebrow}</p>
         <h2 className="mt-3 max-w-2xl font-display text-3xl font-bold text-brand-dark-blue sm:text-4xl">{t.title}</h2>

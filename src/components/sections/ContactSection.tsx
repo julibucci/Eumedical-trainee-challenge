@@ -1,12 +1,13 @@
 import { type FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Check, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Check, Linkedin } from "lucide-react";
 import { z } from "zod";
 import { Button } from "../ui/Button";
 import { Checkbox } from "../ui/Checkbox";
 import { FieldError } from "../ui/FieldError";
 import { Input } from "../ui/Input";
 import { EumedicalCross } from "../ui/EumedicalCross";
+import { ClockIcon, LocationIcon, MailIcon, PhoneIcon } from "../icons/ContactIcons";
 import { content } from "../../i18n/content";
 import { useLanguageStore } from "../../store/languageStore";
 import type { ContactFormData } from "../../types/contact";
@@ -80,7 +81,7 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contacto" className="bg-white px-6 py-20 sm:py-24">
+    <section id="contacto" className="scroll-mt-24 bg-white px-6 py-20 sm:py-24">
       <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2.5rem] bg-brand-grey p-8 sm:p-12">
         <EumedicalCross
           size={360}
@@ -93,50 +94,73 @@ export function ContactSection() {
           <h2 className="mt-3 max-w-xl font-display text-3xl font-bold text-brand-dark-blue sm:text-4xl">{t.title}</h2>
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:items-center">
-            <ul className="flex flex-col gap-4">
-              <li className="flex items-center gap-3 text-sm font-bold text-brand-dark-blue">
-                <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white shadow-sm">
-                  <Mail size={17} strokeWidth={1.75} />
-                </span>
-                <a href="mailto:business@eumedical.es" className="hover:underline">
-                  business@eumedical.es
-                </a>
-              </li>
-              <li className="flex items-center gap-3 text-sm font-bold text-brand-dark-blue">
-                <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white shadow-sm">
-                  <Phone size={17} strokeWidth={1.75} />
-                </span>
-                <a href="tel:+34919227810" className="hover:underline">
-                  +34 919 22 78 10
-                </a>
-              </li>
-              <li className="flex items-center gap-3 text-sm font-bold text-brand-dark-blue">
-                <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white shadow-sm">
-                  <MapPin size={17} strokeWidth={1.75} />
-                </span>
-                {t.address}
-              </li>
-              <li className="mt-2">
+            <div className="rounded-3xl bg-white p-6 shadow-sm sm:p-8">
+              <h3 className="font-display text-lg font-bold text-brand-dark-blue">{t.cardTitle}</h3>
+
+              <ul className="mt-5 flex flex-col gap-4">
+                <li className="flex items-start gap-3">
+                  <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-pale-sage text-brand-dark-blue">
+                    <MailIcon size={18} />
+                  </span>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wide text-gray-500">{t.emailLabel}</p>
+                    <a href="mailto:business@eumedical.es" className="font-bold text-brand-dark-blue hover:underline">
+                      business@eumedical.es
+                    </a>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-pale-sage text-brand-dark-blue">
+                    <PhoneIcon size={18} />
+                  </span>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wide text-gray-500">{t.phoneLabel}</p>
+                    <a href="tel:+34919227810" className="font-bold text-brand-dark-blue hover:underline">
+                      +34 919 22 78 10
+                    </a>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-pale-sage text-brand-dark-blue">
+                    <LocationIcon size={18} />
+                  </span>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wide text-gray-500">{t.addressLabel}</p>
+                    <p className="font-bold text-brand-dark-blue">{t.address}</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-pale-sage text-brand-dark-blue">
+                    <ClockIcon size={18} />
+                  </span>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wide text-gray-500">{t.hoursLabel}</p>
+                    <p className="font-bold text-brand-dark-blue">{t.hours}</p>
+                  </div>
+                </li>
+              </ul>
+
+              <div className="mt-5 border-t border-gray-100 pt-5">
                 {LINKEDIN_URL ? (
                   <a
                     href={LINKEDIN_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t.linkedinAriaReal}
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-dark-blue text-white transition-colors hover:bg-brand-dark-blue/90"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-dark-blue text-white transition-colors hover:bg-brand-dark-blue/90"
                   >
                     <Linkedin aria-hidden="true" size={17} strokeWidth={1.75} />
                   </a>
                 ) : (
                   <span
                     aria-label={t.linkedinAriaPlaceholder}
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-dark-blue text-white"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-dark-blue text-white"
                   >
                     <Linkedin aria-hidden="true" size={17} strokeWidth={1.75} />
                   </span>
                 )}
-              </li>
-            </ul>
+              </div>
+            </div>
 
             {isSubmitted ? (
               <div className="flex flex-col items-center gap-3 rounded-3xl bg-white p-10 text-center shadow-xl lg:-my-6">
@@ -191,6 +215,10 @@ export function ContactSection() {
                   <div className="flex flex-col gap-1.5">
                     <label htmlFor="contact-message" className="text-xs font-bold uppercase tracking-wide text-gray-500">
                       {t.form.mensaje}
+                      <span className="text-red-500" aria-hidden="true">
+                        {" "}
+                        *
+                      </span>
                     </label>
                     <textarea
                       id="contact-message"
@@ -199,6 +227,7 @@ export function ContactSection() {
                       aria-required="true"
                       aria-invalid={errorField === "mensaje"}
                       aria-describedby={errorField === "mensaje" ? "contact-message-error" : undefined}
+                      placeholder={t.form.messagePlaceholder}
                       value={form.mensaje}
                       onChange={(event) => updateField("mensaje", event.target.value)}
                       onBlur={() => validateOnBlur("mensaje")}

@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { ChevronDown, ChevronUp, Menu, X } from "lucide-react";
 import { EumedicalLogo } from "../ui/EumedicalLogo";
 import { content } from "../../i18n/content";
 import { useLanguageStore, type Language } from "../../store/languageStore";
+import { useActiveSection } from "../../hooks/useActiveSection";
 
 /** Banderas como SVG propio: los emoji de bandera no renderizan como imagen en Windows (Segoe UI Emoji muestra las letras del país en vez del ícono). */
 function FlagUS() {
@@ -66,17 +67,17 @@ function LanguageSwitcher() {
         aria-expanded={isOpen}
         aria-label={`Language: ${current.label}`}
         onClick={() => setIsOpen((value) => !value)}
-        style={{ width: 207, height: 48, borderRadius: 9 }}
-        className="flex items-center justify-between gap-2 bg-white px-4 text-base text-gray-900 shadow-sm"
+        style={{ width: 160, height: 38, borderRadius: 8 }}
+        className="flex items-center justify-between gap-2 bg-white px-3 text-sm text-gray-900 shadow-sm"
       >
         <span className="flex items-center gap-2">
           <current.Flag />
           {current.label}
         </span>
         {isOpen ? (
-          <ChevronUp aria-hidden="true" size={18} strokeWidth={2} className="text-gray-500" />
+          <ChevronUp aria-hidden="true" size={16} strokeWidth={2} className="text-gray-500" />
         ) : (
-          <ChevronDown aria-hidden="true" size={18} strokeWidth={2} className="text-gray-500" />
+          <ChevronDown aria-hidden="true" size={16} strokeWidth={2} className="text-gray-500" />
         )}
       </button>
 
@@ -84,7 +85,7 @@ function LanguageSwitcher() {
         role="menu"
         aria-label="Language options"
         aria-hidden={!isOpen}
-        style={{ width: 207, borderRadius: 10 }}
+        style={{ width: 160, borderRadius: 9 }}
         className={`absolute left-0 top-full z-20 mt-1 origin-top overflow-hidden bg-white shadow-md transition-all duration-150 ease-out ${
           isOpen ? "visible scale-100 opacity-100" : "invisible scale-95 opacity-0"
         }`}
@@ -99,7 +100,7 @@ function LanguageSwitcher() {
               setLanguage(option.code);
               setIsOpen(false);
             }}
-            className={`flex w-full items-center gap-2 px-4 py-3 text-left text-base text-gray-900 hover:bg-gray-50 ${
+            className={`flex w-full items-center gap-2 px-3 py-2.5 text-left text-sm text-gray-900 hover:bg-gray-50 ${
               option.code === language ? "bg-gray-100" : "bg-white"
             }`}
           >
@@ -118,27 +119,46 @@ export function MarketingHeader() {
   const language = useLanguageStore((state) => state.language);
   const t = content[language].header;
 
+  const sectionIds = useMemo(() => [...new Set(t.nav.map((link) => link.href.slice(1)))], [t.nav]);
+  const activeSectionId = useActiveSection(sectionIds);
+
+  // Dos ítems del nav pueden apuntar al mismo href (ej. "Cobertura" y "Sobre nosotros" → #cobertura):
+  // solo se resalta el primero de ellos, para que nunca se marquen dos a la vez.
+  function isLinkActive(href: string, index: number) {
+    if (activeSectionId === null || href !== `#${activeSectionId}`) return false;
+    return t.nav.findIndex((link) => link.href === href) === index;
+  }
+
   return (
     <header className="sticky top-0 z-30 border-b border-gray-100 bg-white/95 px-6 py-4 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
-        <EumedicalLogo size={22} />
+        <EumedicalLogo size={36} className="-ml-1" />
 
-        <nav aria-label="Navegación principal" className="hidden flex-1 justify-center gap-8 text-sm font-heading font-bold text-brand-dark-blue lg:flex">
-          {t.nav.map((link) => (
-            <a key={link.href} href={link.href} className="transition-colors hover:text-brand-medium-aqua">
+        <nav aria-label="Navegación principal" className="hidden flex-1 items-center justify-center gap-2 text-base font-heading font-bold lg:flex">
+          {t.nav.map((link, index) => (
+            <a
+              key={link.label}
+              href={link.href}
+              aria-current={isLinkActive(link.href, index) ? "true" : undefined}
+              className={`rounded-full px-4 py-1.5 transition-colors ${
+                isLinkActive(link.href, index)
+                  ? "bg-brand-dark-blue text-white"
+                  : "text-brand-dark-blue hover:bg-brand-grey"
+              }`}
+            >
               {link.label}
             </a>
           ))}
         </nav>
 
         <div className="hidden items-center gap-4 lg:flex">
-          <LanguageSwitcher />
           <a
             href="#contacto"
             className="shrink-0 rounded-full bg-brand-dark-blue px-5 py-2.5 text-sm font-heading font-bold text-white transition-colors hover:bg-brand-dark-blue/90"
           >
             {t.cta}
           </a>
+          <LanguageSwitcher />
         </div>
 
         <button
@@ -158,15 +178,22 @@ export function MarketingHeader() {
 
       {isMobileNavOpen && (
         <div className="mx-auto mt-4 flex max-w-7xl flex-col gap-4 border-t border-gray-100 pt-4 lg:hidden">
-          <nav aria-label="Navegación principal" className="flex flex-col gap-3 text-sm font-heading font-bold text-brand-dark-blue">
-            {t.nav.map((link) => (
-              <a key={link.href} href={link.href} onClick={() => setIsMobileNavOpen(false)}>
+          <nav aria-label="Navegación principal" className="flex flex-col items-start gap-2 text-base font-heading font-bold">
+            {t.nav.map((link, index) => (
+              <a
+                key={link.label}
+                href={link.href}
+                aria-current={isLinkActive(link.href, index) ? "true" : undefined}
+                onClick={() => setIsMobileNavOpen(false)}
+                className={`rounded-full px-4 py-1.5 transition-colors ${
+                  isLinkActive(link.href, index) ? "bg-brand-dark-blue text-white" : "text-brand-dark-blue"
+                }`}
+              >
                 {link.label}
               </a>
             ))}
           </nav>
           <div className="flex flex-col items-start gap-3">
-            <LanguageSwitcher />
             <a
               href="#contacto"
               onClick={() => setIsMobileNavOpen(false)}
@@ -174,6 +201,7 @@ export function MarketingHeader() {
             >
               {t.cta}
             </a>
+            <LanguageSwitcher />
           </div>
         </div>
       )}
