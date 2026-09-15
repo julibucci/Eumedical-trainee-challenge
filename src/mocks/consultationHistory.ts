@@ -1,0 +1,55 @@
+import type { Consultation } from "../types/consultation";
+
+/** `daysUntil` no aplica a consultas pasadas (queda en 0) — ver types/consultation.ts. */
+export const consultationHistory: Consultation[] = [
+  {
+    id: "hist-1",
+    doctor: "Dra. Laura Méndez",
+    specialty: "Medicina General",
+    status: "completada",
+    date: "12 sep 2024",
+    time: "11:00 hs",
+    modality: "Videollamada",
+    daysUntil: 0,
+  },
+  {
+    id: "hist-2",
+    doctor: "Dr. Sebastián Torres",
+    specialty: "Cardiología",
+    status: "completada",
+    date: "28 ago 2024",
+    time: "10:30 hs",
+    modality: "Videollamada",
+    daysUntil: 0,
+  },
+  {
+    id: "hist-3",
+    doctor: "Dra. Carla Rivas",
+    specialty: "Nutrición",
+    status: "completada",
+    date: "10 ago 2024",
+    time: "09:00 hs",
+    modality: "Videollamada",
+    daysUntil: 0,
+  },
+  {
+    id: "hist-4",
+    doctor: "Dra. Laura Méndez",
+    specialty: "Medicina General",
+    status: "completada",
+    date: "15 jul 2024",
+    time: "16:00 hs",
+    modality: "Videollamada",
+    daysUntil: 0,
+  },
+  {
+    id: "hist-5",
+    doctor: "Dr. M. Ferreyra",
+    specialty: "Traumatología",
+    status: "cancelada",
+    date: "3 jun 2024",
+    time: "12:00 hs",
+    modality: "Videollamada",
+    daysUntil: 0,
+  },
+];
