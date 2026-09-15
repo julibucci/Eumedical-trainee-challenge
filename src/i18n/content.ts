@@ -15,6 +15,7 @@ export type SiteContent = {
     titleGreen: string;
     subtitle: string;
     stats: { paises: string; idiomas: string; disponibilidad: string };
+    imageAlt: string;
   };
   capabilitiesBento: {
     eyebrow: string;
@@ -57,11 +58,18 @@ export type SiteContent = {
     titleHighlight: string;
     subtitle: string;
     cta: string;
+    trustPoints: { coverage: string; availability: string; network: string };
   };
   contactSection: {
     eyebrow: string;
     title: string;
+    cardTitle: string;
+    emailLabel: string;
+    phoneLabel: string;
+    addressLabel: string;
+    hoursLabel: string;
     address: string;
+    hours: string;
     linkedinAriaReal: string;
     linkedinAriaPlaceholder: string;
     form: {
@@ -70,6 +78,7 @@ export type SiteContent = {
       email: string;
       emailPlaceholder: string;
       mensaje: string;
+      messagePlaceholder: string;
       privacyPrefix: string;
       privacyLink: string;
       privacySuffix: string;
@@ -79,6 +88,8 @@ export type SiteContent = {
     success: { title: string; message: string; resetLink: string };
   };
   footer: {
+    navHeading: string;
+    legalHeading: string;
     nav: NavLink[];
     joinUs: string;
     terms: string;
@@ -90,9 +101,10 @@ export const content: Record<Language, SiteContent> = {
   es: {
     header: {
       nav: [
-        { href: "#servicios", label: "Servicios" },
+        { href: "#nosotros", label: "Servicios" },
+        { href: "#servicios-extendidos", label: "Catálogo" },
         { href: "#cobertura", label: "Cobertura" },
-        { href: "#nosotros", label: "Sobre nosotros" },
+        { href: "#cobertura", label: "Sobre nosotros" },
         { href: "#contacto", label: "Contacto" },
       ],
       cta: "Hablá con nosotros",
@@ -106,6 +118,7 @@ export const content: Record<Language, SiteContent> = {
       subtitle:
         "Capacidades médicas propias en más de 80 países: Know How local, un enfoque holístico de la salud y una experiencia de paciente pensada de punta a punta.",
       stats: { paises: "países con cobertura", idiomas: "idiomas de atención", disponibilidad: "siempre disponibles" },
+      imageAlt: "Paciente en videoconsulta con una médica de eumedical desde su hotel, con pasaporte y valija al lado",
     },
     capabilitiesBento: {
       eyebrow: "Lo que nos distingue",
@@ -149,7 +162,7 @@ export const content: Record<Language, SiteContent> = {
         "soporte-hospitalario": "Soporte hospitalario",
         seguimiento: "Seguimiento",
       },
-      moreLink: "+ 9 servicios más ↓",
+      moreLink: "+ 9 servicios más",
     },
     extendedServicesGrid: {
       eyebrow: "Catálogo completo",
@@ -222,11 +235,18 @@ export const content: Record<Language, SiteContent> = {
       titleHighlight: "De tu salud nos ocupamos nosotros.",
       subtitle: "Dondequiera que estés, tenés un médico disponible en tu idioma, las 24 horas.",
       cta: "Reservar consulta",
+      trustPoints: { coverage: "Cobertura mundial", availability: "Atención inmediata", network: "Red médica propia" },
     },
     contactSection: {
       eyebrow: "Contacto",
-      title: "¿Charlamos sobre tu caso?",
+      title: "Hablá con nosotros",
+      cardTitle: "Datos de contacto",
+      emailLabel: "Email",
+      phoneLabel: "Teléfono",
+      addressLabel: "Ubicación",
+      hoursLabel: "Horario de atención",
       address: "Madrid, España",
+      hours: "Lunes a viernes, 9:00 a 19:00 (CET)",
       linkedinAriaReal: "Perfil de LinkedIn de Eumedical (abre en una pestaña nueva)",
       linkedinAriaPlaceholder: "Perfil de LinkedIn de Eumedical (próximamente)",
       form: {
@@ -235,6 +255,7 @@ export const content: Record<Language, SiteContent> = {
         email: "EMAIL",
         emailPlaceholder: "nombre@correo.com",
         mensaje: "Mensaje",
+        messagePlaceholder: "Ej: necesito una consulta médica antes de viajar a Italia la semana que viene.",
         privacyPrefix: "Acepto la ",
         privacyLink: "política de privacidad",
         privacySuffix: " y el tratamiento de mis datos para gestionar mi consulta",
@@ -254,6 +275,8 @@ export const content: Record<Language, SiteContent> = {
       },
     },
     footer: {
+      navHeading: "Navegación",
+      legalHeading: "Legal",
       nav: [
         { href: "#hero", label: "Inicio" },
         { href: "#servicios", label: "Servicios" },
@@ -269,9 +292,10 @@ export const content: Record<Language, SiteContent> = {
   en: {
     header: {
       nav: [
-        { href: "#servicios", label: "Services" },
+        { href: "#nosotros", label: "Services" },
+        { href: "#servicios-extendidos", label: "Catalog" },
         { href: "#cobertura", label: "Coverage" },
-        { href: "#nosotros", label: "About us" },
+        { href: "#cobertura", label: "About us" },
         { href: "#contacto", label: "Contact" },
       ],
       cta: "Talk to us",
@@ -285,6 +309,7 @@ export const content: Record<Language, SiteContent> = {
       subtitle:
         "Our own medical capabilities in more than 80 countries: local know-how, a holistic approach to health, and a patient experience designed end to end.",
       stats: { paises: "countries covered", idiomas: "languages supported", disponibilidad: "always available" },
+      imageAlt: "Patient on a video consultation with a eumedical doctor from a hotel room, with a passport and suitcase nearby",
     },
     capabilitiesBento: {
       eyebrow: "What sets us apart",
@@ -328,7 +353,7 @@ export const content: Record<Language, SiteContent> = {
         "soporte-hospitalario": "Hospital support",
         seguimiento: "Follow-up",
       },
-      moreLink: "+ 9 more services ↓",
+      moreLink: "+ 9 more services",
     },
     extendedServicesGrid: {
       eyebrow: "Full catalog",
@@ -401,11 +426,18 @@ export const content: Record<Language, SiteContent> = {
       titleHighlight: "We'll take care of your health.",
       subtitle: "Wherever you are, you have a doctor available in your language, 24 hours a day.",
       cta: "Book a consultation",
+      trustPoints: { coverage: "Worldwide coverage", availability: "Immediate care", network: "Our own medical network" },
     },
     contactSection: {
       eyebrow: "Contact",
-      title: "Shall we talk about your case?",
+      title: "Talk to us",
+      cardTitle: "Contact details",
+      emailLabel: "Email",
+      phoneLabel: "Phone",
+      addressLabel: "Location",
+      hoursLabel: "Business hours",
       address: "Madrid, Spain",
+      hours: "Monday to Friday, 9:00 AM to 7:00 PM (CET)",
       linkedinAriaReal: "Eumedical's LinkedIn profile (opens in a new tab)",
       linkedinAriaPlaceholder: "Eumedical's LinkedIn profile (coming soon)",
       form: {
@@ -414,6 +446,7 @@ export const content: Record<Language, SiteContent> = {
         email: "EMAIL",
         emailPlaceholder: "name@email.com",
         mensaje: "Message",
+        messagePlaceholder: "E.g.: I need a medical consultation before traveling to Italy next week.",
         privacyPrefix: "I accept the ",
         privacyLink: "privacy policy",
         privacySuffix: " and the processing of my data to manage my inquiry",
@@ -433,6 +466,8 @@ export const content: Record<Language, SiteContent> = {
       },
     },
     footer: {
+      navHeading: "Navigation",
+      legalHeading: "Legal",
       nav: [
         { href: "#hero", label: "Home" },
         { href: "#servicios", label: "Services" },

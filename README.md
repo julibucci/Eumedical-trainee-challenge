@@ -238,6 +238,19 @@ limitación ya señalada en "Próximos pasos" más abajo). El azul marca sólido
 se mantuvo donde se pidió (tarjeta destacada de la bento, Cobertura,
 Contacto) porque blanco sobre azul marca sí pasa AA cómodo.
 
+**Foto del Hero** (`src/assets/images/hero-teleconsulta.webp`): imagen provista
+por el cliente (teleconsulta real desde un hotel, con el logo de eumedical en
+pantalla), no un banner de fondo — entra como tarjeta flotante propia al
+costado del texto, con esquinas redondeadas. Para que resalte sin agregar
+texto/insignias encima de la foto (se probó con una insignia superpuesta y se
+sacó: tapaba parte de la imagen y competía con ella), tiene dos formas
+redondeadas de color de marca (verde/naranja, semi-transparentes) apenas
+rotadas detrás, a modo de "backdrop" — el mismo truco visual que ya usan las
+tarjetas del bento. Se optimizó antes de sumarla al repo: el archivo original
+(PNG, 1.7 MB) se redujo a WebP 1200×800 a calidad 82 (~49 KB) — sin esto el
+Hero, que es lo primero que carga, hubiera sumado más peso que el resto de la
+página junta.
+
 **Selector de idioma** (`MarketingHeader`) cambia el idioma real de toda la
 landing (ES/EN), no solo la bandera. `useLanguageStore` (zustand, en
 `src/store/languageStore.ts`) guarda el idioma actual — separado de
@@ -250,6 +263,34 @@ solo lo estructural (id, ícono, categoría) — el texto se busca en el
 diccionario por ese mismo id. Alcance: solo la landing de marketing (`/`); el
 área de paciente (`/app/*`) sigue en español fijo, no tiene selector.
 
+**Globo interactivo de Cobertura** (`InteractiveGlobe`,
+`src/components/ui/InteractiveGlobe.tsx`) reemplaza el ícono estático que
+tenía antes esa sección: proyección ortográfica en SVG puro (sin canvas, sin
+imágenes) con fronteras reales de países, dataset Natural Earth 110m vía
+`world-atlas` + `topojson-client` (la resolución más liviana del paquete —
+`countries-110m.json` pesa ~108 KB crudos, las de 50m/10m no se importan en
+ningún lado). Rotación por drag (Pointer Events, mouse y touch con el mismo
+código) y autorotate lento vía `requestAnimationFrame` que se frena al
+arrastrar y se reanuda a los 3s de inactividad; respeta
+`prefers-reduced-motion` (sin autorotate ni pulso de los marcadores, pero el
+drag manual sigue andando). Los ~177 países se re-renderizan escribiendo su
+atributo `d` directamente en el DOM en cada frame (no vía JSX/React) para que
+la animación no dispare un re-render de React 60 veces por segundo — ver el
+comentario en el archivo. `d3-geo` + `topojson-client` + el dataset pesan
+~50 KB gzip, así que `CoverageBlock` los carga con `React.lazy`/`Suspense` en
+un chunk aparte (`InteractiveGlobe-*.js`) en vez de sumarlos al bundle
+principal.
+
+Los marcadores (`src/mocks/globeMarkers.ts`, tipados en
+`src/types/globeMarker.ts`) son mockeados: España/Portugal/Italia/Francia son
+los países reales que menciona "Médicos a domicilio", el resto (Argentina,
+Estados Unidos, Japón, Sudáfrica) son una muestra ilustrativa de otros
+continentes para representar "80+ países" — en producción esta lista
+debería salir de un dataset real de cobertura de la empresa, si existe. El
+componente acepta un prop `interactive` (default `true`); pasarlo en `false`
+deja el globo estático (sin drag, autorotate ni pulso) — útil para validar
+la paleta de colores aislada de la animación.
+
 **Testimonios** (`TestimonialsCarousel`, datos en `src/mocks/testimonials.ts`):
 solo `testimonial-1` es el testimonio real de la empresa (atención en viajes
 al exterior); `testimonial-2/3/4` son ilustrativos, en el mismo tono
@@ -258,26 +299,56 @@ carrusel tenga sentido visual con varias tarjetas — reemplazar por reseñas
 reales cuando estén disponibles. Ninguno muestra nombre de usuario a
 propósito (el tipo `Testimonial` ni siquiera tiene ese campo), pero sí
 muestra `location` (ciudad, país) a propósito — 4 ciudades de 4 continentes
-distintos, para transmitir alcance global sin identificar a nadie. Autoplay cada
-4.5s en loop infinito (técnica de triple copia del array con salto
-instantáneo al cruzar el límite de la copia central, sin librería externa),
-se pausa con el mouse/foco encima y respeta `prefers-reduced-motion`.
+distintos, para transmitir alcance global sin identificar a nadie.
+Desplazamiento automático **continuo y lento** (no saltos discretos cada
+tanto): la posición vive en un `ref` y se escribe directamente en el
+`transform` del track por `requestAnimationFrame`, sin pasar por React en
+cada frame (mismo criterio de performance que el globo). Loop infinito con
+la misma técnica de triple copia del array (sin librería externa); las
+flechas/el swipe hacen un salto puntual con su propia transición y pausan el
+autoplay continuo unos segundos. Se pausa con el mouse/foco encima y respeta
+`prefers-reduced-motion`.
 
 **Formulario de contacto** (`ContactSection`) valida con `zod`, un solo
 tooltip de error visible a la vez (mismo patrón que `LoginPage`/
 `RegisterPage`: se toma el primer campo inválido) pero además valida al
-perder el foco de cada campo, no solo al enviar. Al enviar con todo válido
-no hay backend real: se simula el envío (botón deshabilitado ~600ms) y el
-formulario se reemplaza por un estado de éxito ("¡Gracias! Te vamos a
-contactar a la brevedad.", con opción de "Enviar otro mensaje"). En
-producción esto dispararía un email real o una integración con un CRM. El
-ícono de **LinkedIn** queda sin `href` (`LINKEDIN_URL` en `ContactSection.tsx`
-está en `undefined` a propósito) porque no hay una URL real de la empresa
-provista para esta prueba — apenas se tenga, cambia a un `<a target="_blank"
+perder el foco de cada campo, no solo al enviar. Los campos obligatorios
+llevan un asterisco en el label. Al enviar con todo válido no hay backend
+real: se simula el envío (botón deshabilitado ~600ms) y el formulario se
+reemplaza por un estado de éxito ("¡Gracias! Te vamos a contactar a la
+brevedad.", con opción de "Enviar otro mensaje"). En producción esto
+dispararía un email real o una integración con un CRM. El ícono de
+**LinkedIn** queda sin `href` (`LINKEDIN_URL` en `ContactSection.tsx` está en
+`undefined` a propósito) porque no hay una URL real de la empresa provista
+para esta prueba — apenas se tenga, cambia a un `<a target="_blank"
 rel="noopener noreferrer">` real, el componente ya está preparado para ese
 caso. "Únete a nuestro equipo" en el footer enlaza a la sección de Contacto
 como placeholder — no hay un flujo de postulación real en el alcance de
-esta prueba.
+esta prueba. El horario de atención (`t.hours`) es ilustrativo, no viene de
+un dato real de la empresa.
+
+**Revisión de marca en Contacto** (a pedido explícito, siguiendo el manual):
+- **Tipografías**: `Didact Gothic` (subtítulos) ya está cargada de verdad vía
+  Google Fonts en `index.html`, no hay que tocar nada ahí. `Dinosaur Book`
+  (titulares) no está disponible públicamente (no es una Google Font ni está
+  en ningún CDN) — ya se había sustituido por `Varela Round` desde el setup
+  inicial del proyecto (ver sección "Sustitución tipográfica" más abajo);
+  esta revisión no cambió esa decisión, solo la confirma.
+- **Cruz sin efectos**: el Brand Book pide el símbolo sin sombras ni
+  degradados. Se sacó el `shadow-sm` de `CrossBadge.tsx` (afectaba a la
+  cruz en las 4 capacidades de la bento y en los 14 servicios extendidos,
+  todos de una sola vez al ser un componente compartido) y el `shadow-lg`
+  del sello circular de `ClosingCta.tsx`. Los usos grandes de fondo
+  decorativo (Hero, Cobertura, Contacto, Cierre) ya no tenían sombra —
+  solo rotación y opacidad, que sí están permitidas.
+- **Íconos de contacto propios**: `src/components/icons/ContactIcons.tsx`
+  (`MailIcon`, `PhoneIcon`, `LocationIcon`, `ClockIcon`) reemplazan los
+  íconos de Lucide que había antes — SVG a mano, formas simples con radios
+  grandes (mismo criterio de construcción que `EumedicalCross`), un solo
+  color vía `currentColor`, sin sombra en sus insignias.
+- **Card de contacto**: los datos (email, teléfono, ubicación, horario,
+  LinkedIn) ahora viven agrupados en una tarjeta blanca propia dentro del
+  bloque lateral, en vez de una lista suelta sobre el fondo gris.
 
 ## Próximos pasos
 

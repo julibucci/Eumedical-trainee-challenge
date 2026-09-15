@@ -1,8 +1,13 @@
 import { EumedicalCross } from "../ui/EumedicalCross";
 import { content } from "../../i18n/content";
 import { useLanguageStore } from "../../store/languageStore";
+import heroImage from "../../assets/images/hero-teleconsulta.webp";
 
-/** Hero asimétrico: sin foto de fondo, tipografía como protagonista + la cruz de marca como recurso gráfico decorativo (Brand Book sec. 2.1). */
+/**
+ * Hero asimétrico: sin banner de fondo — la foto entra como una tarjeta flotante propia al
+ * costado del texto (mismo lenguaje visual redondeado del resto de la página), no como imagen
+ * de fondo. La cruz de marca sigue de recurso gráfico decorativo (Brand Book sec. 2.1).
+ */
 export function Hero() {
   const language = useLanguageStore((state) => state.language);
   const t = content[language].hero;
@@ -21,17 +26,32 @@ export function Hero() {
         className="pointer-events-none absolute -right-28 -top-32 rotate-[18deg] opacity-[0.07] sm:-right-16 sm:-top-24"
       />
 
-      <div className="relative mx-auto max-w-5xl">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-orange">{t.eyebrow}</p>
+      <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-orange">{t.eyebrow}</p>
 
-        <h1 className="mt-4 max-w-3xl font-display text-4xl leading-[1.1] sm:text-5xl lg:text-6xl">
-          <span className="text-brand-dark-blue">{t.titleBlue}</span> <span className="text-brand-medium-aqua">{t.titleGreen}</span>
-        </h1>
+          <h1 className="mt-4 font-display text-4xl leading-[1.1] sm:text-5xl lg:text-6xl">
+            <span className="text-brand-dark-blue">{t.titleBlue}</span>{" "}
+            <span className="text-brand-medium-aqua">{t.titleGreen}</span>
+          </h1>
 
-        <p className="mt-6 max-w-xl text-lg text-brand-dark-blue/70">{t.subtitle}</p>
+          <p className="mt-6 max-w-xl text-lg text-brand-dark-blue/70">{t.subtitle}</p>
+        </div>
+
+        <div className="relative mx-auto w-full max-w-md lg:mx-0 lg:max-w-none">
+          <div aria-hidden="true" className="absolute -inset-4 -z-10 rotate-3 rounded-[2.5rem] bg-brand-medium-aqua/30" />
+          <div aria-hidden="true" className="absolute -inset-4 -z-10 -rotate-2 rounded-[2.5rem] bg-brand-orange/15" />
+          <img
+            src={heroImage}
+            alt={t.imageAlt}
+            width={1200}
+            height={800}
+            className="w-full rounded-[2rem] object-cover shadow-xl ring-1 ring-black/5"
+          />
+        </div>
       </div>
 
-      <div className="relative mx-auto mt-12 grid max-w-5xl gap-4 sm:grid-cols-3 sm:items-stretch">
+      <div className="relative mx-auto mt-16 grid max-w-6xl gap-4 sm:grid-cols-3 sm:items-stretch">
         {stats.map((stat) => (
           <div
             key={stat.id}
