@@ -101,9 +101,9 @@ export const content: Record<Language, SiteContent> = {
   es: {
     header: {
       nav: [
+        { href: "#hero", label: "Inicio" },
         { href: "#nosotros", label: "Servicios" },
-        { href: "#servicios-extendidos", label: "Catálogo" },
-        { href: "#cobertura", label: "Cobertura" },
+        { href: "#servicios-extendidos", label: "Cobertura" },
         { href: "#cobertura", label: "Sobre nosotros" },
         { href: "#contacto", label: "Contacto" },
       ],
@@ -292,9 +292,9 @@ export const content: Record<Language, SiteContent> = {
   en: {
     header: {
       nav: [
+        { href: "#hero", label: "Home" },
         { href: "#nosotros", label: "Services" },
-        { href: "#servicios-extendidos", label: "Catalog" },
-        { href: "#cobertura", label: "Coverage" },
+        { href: "#servicios-extendidos", label: "Coverage" },
         { href: "#cobertura", label: "About us" },
         { href: "#contacto", label: "Contact" },
       ],

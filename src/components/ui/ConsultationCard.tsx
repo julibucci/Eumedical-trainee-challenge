@@ -1,6 +1,7 @@
 import { Apple, Bone, Calendar, Clock, HeartPulse, Stethoscope } from "lucide-react";
 import { Badge } from "./Badge";
 import { Button } from "./Button";
+import { EumedicalCross } from "./EumedicalCross";
 import type { Consultation, ConsultationStatus, MedicalSpecialty } from "../../types/consultation";
 
 const ICON_SIZE = 22;
@@ -31,21 +32,35 @@ type ConsultationCardProps = {
   isFeatured?: boolean;
   onReschedule?: (consultation: Consultation) => void;
   onCancel?: (consultation: Consultation) => void;
+  onJoin?: (consultation: Consultation) => void;
 };
 
 /** Tarjeta reutilizable de consulta (Consultas hoy; pensada para reusarse en Historial más adelante). */
-export function ConsultationCard({ consultation, isFeatured = false, onReschedule, onCancel }: ConsultationCardProps) {
+export function ConsultationCard({
+  consultation,
+  isFeatured = false,
+  onReschedule,
+  onCancel,
+  onJoin,
+}: ConsultationCardProps) {
   const { icon: Icon, bg, iconColor } = SPECIALTY_CONFIG[consultation.specialty];
 
   return (
     <div
-      className={`overflow-hidden rounded-2xl bg-white ${
+      className={`relative overflow-hidden rounded-2xl bg-white ${
         isFeatured ? "border-2 border-brand-medium-aqua" : "border border-gray-200"
       }`}
     >
       {isFeatured && (
+        <EumedicalCross
+          size={90}
+          color="#1e4865"
+          className="pointer-events-none absolute -bottom-6 -right-6 -z-10 opacity-[0.06]"
+        />
+      )}
+      {isFeatured && (
         <div className="bg-brand-medium-aqua/15 px-5 py-2">
-          <p className="text-xs font-bold uppercase tracking-wide text-emerald-800">
+          <p className="font-heading text-xs font-bold uppercase tracking-wide text-brand-dark-blue">
             Próxima · En {pluralDays(consultation.daysUntil)}
           </p>
         </div>
@@ -59,7 +74,7 @@ export function ConsultationCard({ consultation, isFeatured = false, onReschedul
 
           <div>
             <div className="flex flex-wrap items-center gap-2">
-              <p className="font-bold text-brand-dark-blue">{consultation.doctor}</p>
+              <p className="font-heading font-bold text-brand-dark-blue">{consultation.doctor}</p>
               <Badge variant={consultation.status}>{STATUS_LABEL[consultation.status]}</Badge>
             </div>
             <p className="text-sm text-gray-500">{consultation.specialty}</p>
@@ -89,15 +104,23 @@ export function ConsultationCard({ consultation, isFeatured = false, onReschedul
           >
             Reagendar
           </button>
+          {/* Cancelar es una acción secundaria, no un error — nunca rojo (ver "Cerrar sesión"). */}
           <button
             type="button"
             onClick={() => onCancel?.(consultation)}
             aria-label={`Cancelar consulta con ${consultation.doctor}`}
-            className="rounded-lg bg-red-50 px-4 py-2 text-sm font-bold text-red-600 transition-colors hover:bg-red-100"
+            className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-bold text-brand-dark-blue transition-colors hover:bg-gray-50"
           >
             Cancelar
           </button>
-          {isFeatured && <Button aria-label={`Unirme a la teleconsulta con ${consultation.doctor}`}>Unirme →</Button>}
+          {isFeatured && (
+            <Button
+              aria-label={`Unirme a la teleconsulta con ${consultation.doctor}`}
+              onClick={() => onJoin?.(consultation)}
+            >
+              Unirme →
+            </Button>
+          )}
         </div>
       </div>
     </div>

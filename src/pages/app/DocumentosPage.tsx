@@ -2,8 +2,11 @@ import { type ChangeEvent, type DragEvent, useId, useState } from "react";
 import { FileText, UploadCloud } from "lucide-react";
 import toast from "react-hot-toast";
 import { DocumentRow } from "../../components/ui/DocumentRow";
+import { EumedicalCross } from "../../components/ui/EumedicalCross";
 import { documents as initialDocuments } from "../../mocks/documents";
 import type { MedicalDocument } from "../../types/document";
+
+const ICON_STROKE_WIDTH = 1.75;
 
 const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024;
 const ACCEPTED_EXTENSIONS = [".pdf", ".jpg", ".jpeg", ".png"];
@@ -75,7 +78,7 @@ export default function DocumentosPage() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h2 className="font-display text-2xl font-bold text-brand-dark-blue sm:text-3xl">Documentos e informes</h2>
+        <h2 className="font-display text-2xl font-medium text-brand-dark-blue sm:text-3xl">Documentos e informes</h2>
         <p className="mt-1 text-gray-500">Tus estudios, análisis e informes médicos</p>
       </div>
 
@@ -90,7 +93,7 @@ export default function DocumentosPage() {
           isDragging ? "border-brand-medium-aqua bg-brand-medium-aqua/10" : "border-brand-medium-aqua/50 bg-brand-medium-aqua/5"
         }`}
       >
-        <UploadCloud aria-hidden="true" size={32} strokeWidth={1.5} className="text-brand-dark-blue" />
+        <UploadCloud aria-hidden="true" size={32} strokeWidth={ICON_STROKE_WIDTH} className="text-brand-dark-blue" />
         <p className="font-bold text-brand-dark-blue">Arrastrá tus estudios aquí</p>
         <p className="text-sm text-gray-500">PDF, JPG, PNG · Máx. 10 MB por archivo</p>
         <label
@@ -110,14 +113,19 @@ export default function DocumentosPage() {
       </div>
 
       {documents.length === 0 ? (
-        <div className="flex flex-col items-center gap-2 rounded-2xl border border-dashed border-gray-300 bg-white px-6 py-14 text-center">
-          <FileText aria-hidden="true" size={32} strokeWidth={1.75} className="text-gray-400" />
-          <h3 className="font-display text-lg font-bold text-brand-dark-blue">Todavía no subiste ningún estudio</h3>
+        <div className="relative flex flex-col items-center gap-2 overflow-hidden rounded-2xl border border-dashed border-gray-300 bg-white px-6 py-14 text-center">
+          <EumedicalCross
+            size={140}
+            color="#1e4865"
+            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 opacity-[0.06]"
+          />
+          <FileText aria-hidden="true" size={32} strokeWidth={ICON_STROKE_WIDTH} className="text-gray-400" />
+          <h3 className="font-display text-lg font-medium text-brand-dark-blue">Todavía no subiste ningún estudio</h3>
           <p className="max-w-sm text-gray-500">Usá la zona de arriba para subir tu primer análisis, estudio o informe.</p>
         </div>
       ) : (
         <div>
-          <p className="text-xs font-bold uppercase tracking-wide text-emerald-700">
+          <p className="font-heading text-xs font-bold uppercase tracking-wide text-brand-dark-blue">
             {documents.length} {documents.length === 1 ? "documento" : "documentos"}
           </p>
           <div className="mt-3 rounded-2xl bg-white">

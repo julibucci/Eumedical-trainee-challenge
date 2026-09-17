@@ -8,7 +8,7 @@ import { useActiveSection } from "../../hooks/useActiveSection";
 /** Banderas como SVG propio: los emoji de bandera no renderizan como imagen en Windows (Segoe UI Emoji muestra las letras del país en vez del ícono). */
 function FlagUS() {
   return (
-    <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true" className="shrink-0 rounded-sm">
+    <svg width="18" height="12.6" viewBox="0 0 20 14" aria-hidden="true" className="shrink-0 rounded-sm">
       <rect width="20" height="14" fill="#B22234" />
       <rect y="1.08" width="20" height="1.08" fill="#fff" />
       <rect y="3.23" width="20" height="1.08" fill="#fff" />
@@ -23,7 +23,7 @@ function FlagUS() {
 
 function FlagES() {
   return (
-    <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true" className="shrink-0 rounded-sm">
+    <svg width="18" height="12.6" viewBox="0 0 20 14" aria-hidden="true" className="shrink-0 rounded-sm">
       <rect width="20" height="14" fill="#AA151B" />
       <rect y="3.5" width="20" height="7" fill="#F1BF00" />
     </svg>
@@ -67,7 +67,7 @@ function LanguageSwitcher() {
         aria-expanded={isOpen}
         aria-label={`Language: ${current.label}`}
         onClick={() => setIsOpen((value) => !value)}
-        style={{ width: 160, height: 38, borderRadius: 8 }}
+        style={{ width: 142, height: 40, borderRadius: 9 }}
         className="flex items-center justify-between gap-2 bg-white px-3 text-sm text-gray-900 shadow-sm"
       >
         <span className="flex items-center gap-2">
@@ -85,7 +85,7 @@ function LanguageSwitcher() {
         role="menu"
         aria-label="Language options"
         aria-hidden={!isOpen}
-        style={{ width: 160, borderRadius: 9 }}
+        style={{ width: 142, borderRadius: 9 }}
         className={`absolute left-0 top-full z-20 mt-1 origin-top overflow-hidden bg-white shadow-md transition-all duration-150 ease-out ${
           isOpen ? "visible scale-100 opacity-100" : "invisible scale-95 opacity-0"
         }`}
@@ -132,7 +132,7 @@ export function MarketingHeader() {
   return (
     <header className="sticky top-0 z-30 border-b border-gray-100 bg-white/95 px-6 py-4 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
-        <EumedicalLogo size={36} className="-ml-1" />
+        <EumedicalLogo size={44} className="-ml-20" />
 
         <nav aria-label="Navegación principal" className="hidden flex-1 items-center justify-center gap-2 text-base font-heading font-bold lg:flex">
           {t.nav.map((link, index) => (
@@ -151,13 +151,7 @@ export function MarketingHeader() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-4 lg:flex">
-          <a
-            href="#contacto"
-            className="shrink-0 rounded-full bg-brand-dark-blue px-5 py-2.5 text-sm font-heading font-bold text-white transition-colors hover:bg-brand-dark-blue/90"
-          >
-            {t.cta}
-          </a>
+        <div className="hidden items-center gap-6 lg:flex">
           <LanguageSwitcher />
         </div>
 
@@ -194,13 +188,6 @@ export function MarketingHeader() {
             ))}
           </nav>
           <div className="flex flex-col items-start gap-3">
-            <a
-              href="#contacto"
-              onClick={() => setIsMobileNavOpen(false)}
-              className="rounded-full bg-brand-dark-blue px-5 py-2.5 text-sm font-heading font-bold text-white"
-            >
-              {t.cta}
-            </a>
             <LanguageSwitcher />
           </div>
         </div>

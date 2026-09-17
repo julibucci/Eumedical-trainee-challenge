@@ -3,6 +3,7 @@ import { CalendarClock, Folder, Home, LogOut, Menu, MessageCircle, Pill, User } 
 import type { LucideIcon } from "lucide-react";
 import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { EumedicalLogo } from "../ui/EumedicalLogo";
+import { EumedicalCross } from "../ui/EumedicalCross";
 import { Badge } from "../ui/Badge";
 import { PatientAvatar } from "../ui/PatientAvatar";
 import { NotificationsDropdown } from "./NotificationsDropdown";
@@ -52,8 +53,10 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
 
   return (
     <>
-      <EumedicalLogo theme="dark" size={24} />
-      <p className="mt-8 text-xs font-bold uppercase tracking-wide text-brand-light-aqua/70">Área de paciente</p>
+      <EumedicalLogo theme="dark" size={30} />
+      <p className="mt-8 font-heading text-xs font-bold uppercase tracking-wide text-brand-light-aqua/70">
+        Área de paciente
+      </p>
 
       <nav aria-label="Navegación del área de paciente" className="mt-4 flex flex-1 flex-col gap-1">
         {NAV_ITEMS.map(({ to, label, icon: Icon, end, badge }) => (
@@ -63,14 +66,25 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
             end={end}
             onClick={onNavigate}
             className={({ isActive }) =>
-              `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors ${
-                isActive ? "bg-brand-medium-aqua font-bold text-white" : "text-brand-light-aqua hover:bg-white/5"
+              // Fill teal + texto blanco no llega a 4.5:1 (AA) — el estado activo se marca con
+              // ícono teal + fondo sutil, no con el teal como color de texto/fill de bloque.
+              `flex items-center gap-3 rounded-xl px-3 py-2.5 font-heading text-sm transition-colors ${
+                isActive ? "bg-white/10 font-bold text-white" : "text-brand-light-aqua hover:bg-white/5"
               }`
             }
           >
-            <Icon aria-hidden="true" size={ICON_SIZE} strokeWidth={ICON_STROKE_WIDTH} />
-            <span className="flex-1">{label}</span>
-            {badge ? <Badge variant="orange">{badge}</Badge> : null}
+            {({ isActive }: { isActive: boolean }) => (
+              <>
+                <Icon
+                  aria-hidden="true"
+                  size={ICON_SIZE}
+                  strokeWidth={ICON_STROKE_WIDTH}
+                  className={isActive ? "text-brand-medium-aqua" : ""}
+                />
+                <span className="flex-1">{label}</span>
+                {badge ? <Badge variant="orange">{badge}</Badge> : null}
+              </>
+            )}
           </NavLink>
         ))}
       </nav>
@@ -79,7 +93,7 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
         type="button"
         aria-label="Cerrar sesión"
         onClick={handleLogout}
-        className="mt-auto flex w-full items-center gap-3 rounded-xl bg-white px-3 py-2.5 text-sm font-bold text-red-600 shadow-sm hover:bg-red-50"
+        className="mt-auto flex w-full items-center gap-3 rounded-xl border border-white/25 bg-transparent px-3 py-2.5 font-heading text-sm font-bold text-white transition-colors hover:bg-white/10"
       >
         <LogOut aria-hidden="true" size={ICON_SIZE} strokeWidth={ICON_STROKE_WIDTH} />
         Cerrar sesión
@@ -92,6 +106,7 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
 export function PatientLayout() {
   const location = useLocation();
   const sessionUser = useAuthStore((state) => state.user);
+  const avatarUrl = useAuthStore((state) => state.avatarUrl);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const sectionTitle = SECTION_TITLES[location.pathname] ?? "Inicio";
   // Sin sesión (ej. se entró directo a /app), se muestra la paciente mock por default.
@@ -111,10 +126,16 @@ export function PatientLayout() {
     <div className="min-h-screen bg-brand-grey lg:flex">
       {/* Sidebar: fija en desktop (lg+), drawer off-canvas en mobile. */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex w-[250px] flex-col bg-brand-dark-blue px-5 py-8 transition-transform lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 flex w-[250px] flex-col overflow-hidden bg-brand-dark-blue px-5 py-8 transition-transform lg:translate-x-0 ${
           isMobileNavOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
+        {/* Watermark de marca: la cruz sola, a opacidad baja, como recurso ilustrativo de fondo. */}
+        <EumedicalCross
+          size={220}
+          color="#ffffff"
+          className="pointer-events-none absolute -bottom-12 -right-16 opacity-[0.06]"
+        />
         <SidebarContent onNavigate={() => setIsMobileNavOpen(false)} />
       </aside>
 
@@ -138,7 +159,7 @@ export function PatientLayout() {
             >
               <Menu aria-hidden="true" size={ICON_SIZE} strokeWidth={ICON_STROKE_WIDTH} className="text-brand-dark-blue" />
             </button>
-            <h1 className="font-display text-lg font-bold text-brand-dark-blue sm:text-xl">{sectionTitle}</h1>
+            <h1 className="font-display text-lg font-medium text-brand-dark-blue sm:text-xl">{sectionTitle}</h1>
           </div>
 
           <div className="flex items-center gap-4 sm:gap-6">
@@ -157,7 +178,7 @@ export function PatientLayout() {
             />
 
             <Link to="/app/perfil" aria-label="Ir a mi perfil" className="rounded-full">
-              <PatientAvatar initials={displayInitials} size="sm" />
+              <PatientAvatar initials={displayInitials} avatarUrl={avatarUrl} size="sm" />
             </Link>
           </div>
         </header>

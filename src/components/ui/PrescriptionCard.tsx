@@ -12,8 +12,9 @@ const STATUS_CONFIG: Record<
   PrescriptionStatus,
   { badgeVariant: "vigente" | "porVencer" | "vencida"; badgeLabel: string; iconBg: string; iconColor: string }
 > = {
-  vigente: { badgeVariant: "vigente", badgeLabel: "Vigente", iconBg: "bg-brand-medium-aqua/20", iconColor: "text-emerald-800" },
-  porVencer: { badgeVariant: "porVencer", badgeLabel: "Por vencer", iconBg: "bg-brand-yellow/20", iconColor: "text-amber-800" },
+  vigente: { badgeVariant: "vigente", badgeLabel: "Vigente", iconBg: "bg-brand-medium-aqua/20", iconColor: "text-brand-dark-blue" },
+  porVencer: { badgeVariant: "porVencer", badgeLabel: "Por vencer", iconBg: "bg-brand-yellow/20", iconColor: "text-brand-dark-blue" },
+  // "vencida" es un estado realmente negativo (receta expirada) — única excepción al rojo.
   vencida: { badgeVariant: "vencida", badgeLabel: "Vencida", iconBg: "bg-red-100", iconColor: "text-red-700" },
 };
 
@@ -44,7 +45,7 @@ export function PrescriptionCard({ prescription, onDownload }: PrescriptionCardP
 
         <div>
           <div className="flex flex-wrap items-center gap-2">
-            <p className="font-bold text-brand-dark-blue">{prescription.medication}</p>
+            <p className="font-heading font-bold text-brand-dark-blue">{prescription.medication}</p>
             <Badge variant={config.badgeVariant}>{config.badgeLabel}</Badge>
           </div>
           <p className="text-sm text-gray-500">{prescription.dosage}</p>

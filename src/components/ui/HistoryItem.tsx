@@ -40,7 +40,7 @@ export function HistoryItem({ consultation }: HistoryItemProps) {
 
         <div className="flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <p className="font-bold text-brand-dark-blue">{consultation.doctor}</p>
+            <p className="font-heading font-bold text-brand-dark-blue">{consultation.doctor}</p>
             <Badge variant={isCancelled ? "cancelada" : "completada"}>
               {isCancelled ? "Cancelada" : "Completada"}
             </Badge>

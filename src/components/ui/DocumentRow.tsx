@@ -8,9 +8,9 @@ const ICON_STROKE_WIDTH = 1.75;
 
 const TYPE_CONFIG: Record<DocumentType, { icon: LucideIcon; bg: string }> = {
   "Análisis clínico": { icon: Microscope, bg: "bg-brand-medium-aqua/20" },
-  "Estudio cardiológico": { icon: FileText, bg: "bg-sky-100" },
-  "Informe médico": { icon: ClipboardList, bg: "bg-violet-100" },
-  "Plan terapéutico": { icon: Leaf, bg: "bg-lime-100" },
+  "Estudio cardiológico": { icon: FileText, bg: "bg-brand-light-aqua/40" },
+  "Informe médico": { icon: ClipboardList, bg: "bg-brand-pale-sage" },
+  "Plan terapéutico": { icon: Leaf, bg: "bg-brand-yellow/20" },
 };
 
 function handleDownload(document: MedicalDocument) {
@@ -36,7 +36,7 @@ export function DocumentRow({ document }: DocumentRowProps) {
             <Icon size={ICON_SIZE} strokeWidth={ICON_STROKE_WIDTH} className="text-brand-dark-blue" />
           </span>
           <div>
-            <p className="font-bold text-brand-dark-blue">{document.name}</p>
+            <p className="font-heading font-bold text-brand-dark-blue">{document.name}</p>
             <p className="text-sm text-gray-500">
               {document.type} · {document.issuer} · {document.date}
             </p>
@@ -68,7 +68,7 @@ export function DocumentRow({ document }: DocumentRowProps) {
 
       {isPreviewOpen && (
         <div id={previewId} className="flex flex-col items-center gap-1 bg-gray-50 px-5 py-8 text-center">
-          <FileText aria-hidden="true" size={40} strokeWidth={1.5} className="text-gray-400" />
+          <FileText aria-hidden="true" size={40} strokeWidth={ICON_STROKE_WIDTH} className="text-gray-400" />
           <p className="mt-2 font-bold text-gray-600">{document.name}</p>
           <p className="text-sm text-gray-400">
             {document.size} · {document.format}

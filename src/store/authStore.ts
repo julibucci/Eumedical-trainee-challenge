@@ -8,9 +8,12 @@ type SessionUser = {
 
 type AuthState = {
   user: SessionUser | null;
+  /** Foto subida en Perfil y soporte — vive acá para reflejarse también en el avatar del header. */
+  avatarUrl: string | null;
   /** Login mockeado: no hay backend, así que el nombre se estima a partir del email. */
   loginWithEmail: (email: string) => void;
   registerWithName: (firstName: string, lastName: string) => void;
+  setAvatarUrl: (avatarUrl: string | null) => void;
   logout: () => void;
 };
 
@@ -33,6 +36,8 @@ function displayNameFromEmail(email: string): string {
 
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
+  avatarUrl: null,
+  setAvatarUrl: (avatarUrl) => set({ avatarUrl }),
   loginWithEmail: (email) => {
     const firstName = displayNameFromEmail(email);
     set({ user: { firstName, fullName: firstName, initials: initialsFrom(firstName) } });
@@ -48,5 +53,9 @@ export const useAuthStore = create<AuthState>((set) => ({
       },
     });
   },
-  logout: () => set({ user: null }),
+  logout: () =>
+    set((state) => {
+      if (state.avatarUrl) URL.revokeObjectURL(state.avatarUrl);
+      return { user: null, avatarUrl: null };
+    }),
 }));

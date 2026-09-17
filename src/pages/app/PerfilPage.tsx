@@ -1,11 +1,14 @@
-import { type FormEvent, type ReactNode, useId, useState } from "react";
-import { BadgeCheck, Mail, MessageCircle, Pencil, User } from "lucide-react";
+import { type ChangeEvent, type FormEvent, type ReactNode, useEffect, useId, useRef, useState } from "react";
+import { BadgeCheck, Camera, Mail, MessageCircle, Pencil, User } from "lucide-react";
 import toast from "react-hot-toast";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
 import { Toggle } from "../../components/ui/Toggle";
 import { initialNotificationPreferences, patientProfile } from "../../mocks/patientProfile";
+import { useAuthStore } from "../../store/authStore";
 import type { NotificationPreferences, PatientProfile } from "../../types/patientProfile";
+
+const MAX_AVATAR_SIZE_BYTES = 5 * 1024 * 1024;
 
 const ICON_SIZE = 20;
 const ICON_STROKE_WIDTH = 1.75;
@@ -14,7 +17,45 @@ function ReadOnlyField({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <p className="text-xs font-bold uppercase tracking-wide text-gray-500">{label}</p>
-      <p className="mt-1 text-brand-dark-blue">{value}</p>
+      <p className="mt-1 whitespace-pre-line text-brand-dark-blue">{value}</p>
+    </div>
+  );
+}
+
+function ProfileAvatar({
+  avatarUrl,
+  initials,
+  isEditing,
+  onPickPhoto,
+}: {
+  avatarUrl: string | null;
+  initials: string;
+  isEditing: boolean;
+  onPickPhoto: () => void;
+}) {
+  return (
+    <div className="relative shrink-0">
+      {avatarUrl ? (
+        <img
+          src={avatarUrl}
+          alt=""
+          className="h-24 w-24 rounded-full object-cover"
+        />
+      ) : (
+        <span className="flex h-24 w-24 items-center justify-center rounded-full bg-brand-medium-aqua text-3xl font-bold text-white">
+          {initials}
+        </span>
+      )}
+      {isEditing && (
+        <button
+          type="button"
+          onClick={onPickPhoto}
+          aria-label="Cambiar foto de perfil"
+          className="absolute -bottom-1 -right-1 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-brand-dark-blue text-white transition-colors hover:bg-brand-dark-blue/90"
+        >
+          <Camera aria-hidden="true" size={16} strokeWidth={ICON_STROKE_WIDTH} />
+        </button>
+      )}
     </div>
   );
 }
@@ -33,7 +74,7 @@ function PreferenceRow({
   return (
     <div className="flex items-center justify-between gap-4 py-3 first:pt-0 last:pb-0">
       <div>
-        <p className="font-bold text-brand-dark-blue">{label}</p>
+        <p className="font-heading font-bold text-brand-dark-blue">{label}</p>
         <p className="text-sm text-gray-500">{description}</p>
       </div>
       <Toggle checked={checked} onChange={onChange} label={label} />
@@ -49,31 +90,76 @@ function SupportOption({ icon, title, subtitle, onClick }: { icon: ReactNode; ti
       className="flex flex-col items-center gap-2 rounded-xl border border-gray-200 p-4 text-center transition-colors hover:bg-gray-50"
     >
       {icon}
-      <span className="text-sm font-bold text-brand-dark-blue">{title}</span>
+      <span className="font-heading text-sm font-bold text-brand-dark-blue">{title}</span>
       <span className="text-xs text-gray-500">{subtitle}</span>
     </button>
   );
 }
 
 export default function PerfilPage() {
+  const setHeaderAvatarUrl = useAuthStore((state) => state.setAvatarUrl);
   const [profile, setProfile] = useState<PatientProfile>(patientProfile);
   const [isEditing, setIsEditing] = useState(false);
   const [formValues, setFormValues] = useState<PatientProfile>(patientProfile);
   const [preferences, setPreferences] = useState<NotificationPreferences>(initialNotificationPreferences);
   const [supportMessage, setSupportMessage] = useState("");
   const messageId = useId();
+  const conditionsId = useId();
+  const avatarInputId = useId();
+  const avatarInputRef = useRef<HTMLInputElement>(null);
+  // Preview sin guardar todavía: se revoca si se reemplaza, se cancela o se abandona la edición.
+  // Una vez guardada (handleSaveProfile), la URL pasa a ser del estado global — no se revoca acá.
+  const pendingPreviewUrlRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (pendingPreviewUrlRef.current) URL.revokeObjectURL(pendingPreviewUrlRef.current);
+    };
+  }, []);
 
   function startEditing() {
     setFormValues(profile);
     setIsEditing(true);
   }
 
+  function cancelEditing() {
+    if (pendingPreviewUrlRef.current) {
+      URL.revokeObjectURL(pendingPreviewUrlRef.current);
+      pendingPreviewUrlRef.current = null;
+    }
+    setIsEditing(false);
+  }
+
   function handleSaveProfile(event: FormEvent) {
     event.preventDefault();
     // Mock: sin backend real, los cambios solo viven en el estado de esta página — ver README.
     setProfile(formValues);
+    // La foto también se refleja en el avatar del header/sidebar (estado global de sesión).
+    setHeaderAvatarUrl(formValues.avatarUrl);
+    pendingPreviewUrlRef.current = null;
     setIsEditing(false);
     toast.success("Cambios guardados (mock)");
+  }
+
+  function handleAvatarChange(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Elegí un archivo de imagen (JPG, PNG)");
+      return;
+    }
+    if (file.size > MAX_AVATAR_SIZE_BYTES) {
+      toast.error("La imagen supera el máximo de 5 MB");
+      return;
+    }
+
+    // Mock: sin backend real, la foto vive como object URL en memoria del navegador.
+    if (pendingPreviewUrlRef.current) URL.revokeObjectURL(pendingPreviewUrlRef.current);
+    const url = URL.createObjectURL(file);
+    pendingPreviewUrlRef.current = url;
+    setFormValues((current) => ({ ...current, avatarUrl: url }));
   }
 
   function updatePreference(key: keyof NotificationPreferences, value: boolean) {
@@ -94,7 +180,7 @@ export default function PerfilPage() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h2 className="font-display text-2xl font-bold text-brand-dark-blue sm:text-3xl">Perfil y soporte</h2>
+        <h2 className="font-display text-2xl font-medium text-brand-dark-blue sm:text-3xl">Perfil y soporte</h2>
         <p className="mt-1 text-gray-500">Datos personales y preferencias</p>
       </div>
 
@@ -102,7 +188,7 @@ export default function PerfilPage() {
         {/* Datos personales */}
         <div className="rounded-2xl bg-white p-6">
           <div className="flex items-center justify-between gap-4">
-            <h3 className="flex items-center gap-2 font-display text-lg font-bold text-brand-dark-blue">
+            <h3 className="flex items-center gap-2 font-display text-lg font-medium text-brand-dark-blue">
               <User aria-hidden="true" size={ICON_SIZE} strokeWidth={ICON_STROKE_WIDTH} />
               Datos personales
             </h3>
@@ -119,17 +205,31 @@ export default function PerfilPage() {
           </div>
 
           <div className="mt-5 flex items-center gap-4">
-            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-brand-medium-aqua text-lg font-bold text-white">
-              {profile.initials}
-            </span>
+            <ProfileAvatar
+              avatarUrl={(isEditing ? formValues.avatarUrl : profile.avatarUrl) ?? null}
+              initials={profile.initials}
+              isEditing={isEditing}
+              onPickPhoto={() => avatarInputRef.current?.click()}
+            />
+            <label htmlFor={avatarInputId} className="sr-only">
+              Foto de perfil
+            </label>
+            <input
+              ref={avatarInputRef}
+              id={avatarInputId}
+              type="file"
+              accept="image/*"
+              onChange={handleAvatarChange}
+              className="sr-only"
+            />
             <div>
-              <p className="font-bold text-brand-dark-blue">{profile.fullName}</p>
+              <p className="font-heading font-bold text-brand-dark-blue">{profile.fullName}</p>
               <p className="flex flex-wrap items-center gap-1.5 text-sm text-gray-500">
                 <span>
                   {profile.status} · ID #{profile.patientId}
                 </span>
                 {profile.isVerified && (
-                  <span className="inline-flex items-center gap-1 text-emerald-700">
+                  <span className="inline-flex items-center gap-1 text-brand-dark-blue">
                     <BadgeCheck aria-hidden="true" size={16} strokeWidth={ICON_STROKE_WIDTH} />
                     Cuenta verificada
                   </span>
@@ -164,12 +264,45 @@ export default function PerfilPage() {
                   value={formValues.insurance}
                   onChange={(event) => setFormValues((current) => ({ ...current, insurance: event.target.value }))}
                 />
+                <Input
+                  label="EDAD"
+                  type="number"
+                  min={0}
+                  max={120}
+                  value={formValues.age ?? ""}
+                  onChange={(event) =>
+                    setFormValues((current) => ({
+                      ...current,
+                      age: event.target.value === "" ? null : Number(event.target.value),
+                    }))
+                  }
+                />
               </div>
+
+              <div>
+                <label htmlFor={conditionsId} className="text-xs font-bold uppercase tracking-wide text-gray-500">
+                  Enfermedades preexistentes <span className="font-normal text-gray-400">(opcional)</span>
+                </label>
+                <textarea
+                  id={conditionsId}
+                  value={formValues.preexistingConditions}
+                  onChange={(event) =>
+                    setFormValues((current) => ({ ...current, preexistingConditions: event.target.value }))
+                  }
+                  placeholder="Ej: Diabetes tipo 2, hipertensión, alergia a la penicilina..."
+                  rows={3}
+                  className="mt-1.5 w-full rounded-lg border border-gray-300 px-3.5 py-2.5 text-brand-dark-blue placeholder:text-gray-400"
+                />
+                <p className="mt-1 text-xs text-gray-400">
+                  Compartilo solo si querés — ayuda a tu médico a darte una mejor atención.
+                </p>
+              </div>
+
               <div className="flex gap-2">
                 <Button type="submit">Guardar cambios</Button>
                 <button
                   type="button"
-                  onClick={() => setIsEditing(false)}
+                  onClick={cancelEditing}
                   className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-bold text-brand-dark-blue transition-colors hover:bg-gray-50"
                 >
                   Cancelar
@@ -177,11 +310,18 @@ export default function PerfilPage() {
               </div>
             </form>
           ) : (
-            <div className="grid gap-4 sm:grid-cols-2">
-              <ReadOnlyField label="NOMBRE COMPLETO" value={profile.fullName} />
-              <ReadOnlyField label="EMAIL" value={profile.email} />
-              <ReadOnlyField label="TELÉFONO" value={profile.phone} />
-              <ReadOnlyField label="OBRA SOCIAL / SEGURO" value={profile.insurance} />
+            <div className="flex flex-col gap-4">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <ReadOnlyField label="NOMBRE COMPLETO" value={profile.fullName} />
+                <ReadOnlyField label="EMAIL" value={profile.email} />
+                <ReadOnlyField label="TELÉFONO" value={profile.phone} />
+                <ReadOnlyField label="OBRA SOCIAL / SEGURO" value={profile.insurance} />
+                <ReadOnlyField label="EDAD" value={profile.age !== null ? `${profile.age} años` : "No especificada"} />
+              </div>
+              <ReadOnlyField
+                label="Enfermedades preexistentes"
+                value={profile.preexistingConditions.trim() || "Ninguna registrada"}
+              />
             </div>
           )}
         </div>
@@ -189,7 +329,7 @@ export default function PerfilPage() {
         <div className="flex flex-col gap-6">
           {/* Preferencias */}
           <div className="rounded-2xl bg-white p-6">
-            <h3 className="font-display text-lg font-bold text-brand-dark-blue">Preferencias de notificaciones</h3>
+            <h3 className="font-display text-lg font-medium text-brand-dark-blue">Preferencias de notificaciones</h3>
             <div className="mt-2 flex flex-col divide-y divide-gray-100">
               <PreferenceRow
                 label="Recordatorios de consulta"
@@ -214,7 +354,7 @@ export default function PerfilPage() {
 
           {/* Contactar soporte */}
           <div className="rounded-2xl bg-white p-6">
-            <h3 className="font-display text-lg font-bold text-brand-dark-blue">Contactar soporte</h3>
+            <h3 className="font-display text-lg font-medium text-brand-dark-blue">Contactar soporte</h3>
             <div className="mt-4 grid grid-cols-2 gap-3">
               <SupportOption
                 icon={<MessageCircle aria-hidden="true" size={22} strokeWidth={ICON_STROKE_WIDTH} className="text-brand-dark-blue" />}

@@ -3,18 +3,21 @@ import { Bell, BellOff, FileText, MessageCircle, Pill, type LucideIcon } from "l
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import type { Notification, NotificationType } from "../../types/notification";
+import { EumedicalCross } from "../ui/EumedicalCross";
 
 const ICON_SIZE = 18;
 const ICON_STROKE_WIDTH = 1.75;
 
+// Gold = alertas (manual de marca). "alta" vs "media" se distingue por intensidad
+// (fill sólido vs. wash), no por hue — no hay rojo genérico de librería para urgencia.
 const RECETA_URGENCY_STYLES: Record<NonNullable<Notification["urgency"]>, { bg: string; color: string }> = {
-  alta: { bg: "bg-red-100", color: "text-red-700" },
-  media: { bg: "bg-brand-yellow/20", color: "text-amber-800" },
+  alta: { bg: "bg-brand-yellow", color: "text-brand-dark-blue" },
+  media: { bg: "bg-brand-yellow/20", color: "text-brand-dark-blue" },
 };
 
 const TYPE_STYLES: Record<Exclude<NotificationType, "receta">, { icon: LucideIcon; bg: string; color: string }> = {
-  consulta: { icon: MessageCircle, bg: "bg-brand-medium-aqua/20", color: "text-emerald-800" },
-  documento: { icon: FileText, bg: "bg-violet-100", color: "text-violet-700" },
+  consulta: { icon: MessageCircle, bg: "bg-brand-medium-aqua/20", color: "text-brand-dark-blue" },
+  documento: { icon: FileText, bg: "bg-brand-pale-sage", color: "text-brand-dark-blue" },
 };
 
 function getNotificationStyle(notification: Notification): { icon: LucideIcon; bg: string; color: string } {
@@ -90,20 +93,25 @@ export function NotificationsDropdown({ notifications, unreadCount, onMarkAsRead
           className="absolute right-0 top-full z-50 mt-2 w-[380px] max-w-[90vw] overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg"
         >
           <div className="flex items-center justify-between gap-3 border-b border-gray-100 px-4 py-3">
-            <p className="font-display font-bold text-brand-dark-blue">Notificaciones</p>
+            <p className="font-display font-medium text-brand-dark-blue">Notificaciones</p>
             <button
               type="button"
               disabled={unreadCount === 0}
               onClick={onMarkAllAsRead}
-              className="text-xs font-bold text-brand-orange hover:underline disabled:cursor-not-allowed disabled:text-gray-300 disabled:no-underline"
+              className="text-xs font-bold text-brand-dark-blue hover:underline disabled:cursor-not-allowed disabled:text-gray-300 disabled:no-underline"
             >
               Marcar todas como leídas
             </button>
           </div>
 
           {notifications.length === 0 ? (
-            <div className="flex flex-col items-center gap-2 px-6 py-10 text-center">
-              <BellOff aria-hidden="true" size={28} strokeWidth={1.5} className="text-gray-300" />
+            <div className="relative flex flex-col items-center gap-2 overflow-hidden px-6 py-10 text-center">
+              <EumedicalCross
+                size={100}
+                color="#1e4865"
+                className="pointer-events-none absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 opacity-[0.06]"
+              />
+              <BellOff aria-hidden="true" size={28} strokeWidth={ICON_STROKE_WIDTH} className="text-gray-300" />
               <p className="text-sm text-gray-500">No tenés notificaciones por el momento</p>
             </div>
           ) : (
