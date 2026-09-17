@@ -7,6 +7,7 @@ import { PlaceholderPage } from "./pages/legal/PlaceholderPage";
 import { PatientLayout } from "./components/layout/PatientLayout";
 import { ProtectedRoute } from "./components/layout/ProtectedRoute";
 import PatientHomePage from "./pages/app/HomePage";
+import CalendarioPage from "./pages/app/CalendarioPage";
 import ConsultasPage from "./pages/app/ConsultasPage";
 import HistorialPage from "./pages/app/HistorialPage";
 import DocumentosPage from "./pages/app/DocumentosPage";
@@ -27,6 +28,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/app" element={<PatientLayout />}>
             <Route index element={<PatientHomePage />} />
+            <Route path="calendario" element={<CalendarioPage />} />
             <Route path="consultas" element={<ConsultasPage />} />
             <Route path="historial" element={<HistorialPage />} />
             <Route path="documentos" element={<DocumentosPage />} />

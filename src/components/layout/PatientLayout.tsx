@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CalendarClock, Folder, Home, LogOut, Menu, MessageCircle, Pill, User } from "lucide-react";
+import { CalendarClock, CalendarDays, Folder, Home, LogOut, Menu, MessageCircle, Pill, User } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { EumedicalLogo } from "../ui/EumedicalLogo";
@@ -25,6 +25,7 @@ type NavItem = {
 const NAV_ITEMS: NavItem[] = [
   { to: "/app", label: "Inicio", icon: Home, end: true },
   { to: "/app/consultas", label: "Consultas", icon: MessageCircle, end: false },
+  { to: "/app/calendario", label: "Calendario", icon: CalendarDays, end: false },
   { to: "/app/historial", label: "Historial", icon: CalendarClock, end: false },
   { to: "/app/documentos", label: "Documentos", icon: Folder, end: false },
   { to: "/app/recetas", label: "Recetas", icon: Pill, end: false, badge: prescriptionsExpiringCount },
@@ -34,6 +35,7 @@ const NAV_ITEMS: NavItem[] = [
 const SECTION_TITLES: Record<string, string> = {
   "/app": "Inicio",
   "/app/consultas": "Consultas",
+  "/app/calendario": "Calendario",
   "/app/historial": "Historial",
   "/app/documentos": "Documentos",
   "/app/recetas": "Recetas",
