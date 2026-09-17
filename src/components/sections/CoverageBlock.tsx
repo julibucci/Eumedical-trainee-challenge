@@ -37,7 +37,10 @@ export function CoverageBlock() {
   return (
     <section
       id="cobertura"
-      className="relative flex min-h-screen scroll-mt-24 items-center overflow-hidden bg-brand-dark-blue px-6 py-24"
+      // min-h-screen (100vh) centraba el contenido contando una altura que en la práctica
+      // queda parcialmente tapada por el header sticky + el scroll-mt-24 usado para
+      // llegar acá desde el nav — restamos esos 6rem para que el centrado sea real.
+      className="relative flex min-h-[calc(100vh-6rem)] scroll-mt-24 items-center overflow-hidden bg-brand-dark-blue px-6 py-24"
     >
       <EumedicalCross
         size={520}

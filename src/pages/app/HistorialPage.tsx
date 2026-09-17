@@ -22,7 +22,7 @@ export default function HistorialPage() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h2 className="font-display text-2xl font-bold text-brand-dark-blue sm:text-3xl">Historial de consultas</h2>
+        <h2 className="font-display text-2xl font-medium text-brand-dark-blue sm:text-3xl">Historial de consultas</h2>
         <p className="mt-1 text-gray-500">Registro cronológico de tu atención médica</p>
       </div>
 
@@ -36,7 +36,7 @@ export default function HistorialPage() {
               role="tab"
               aria-selected={isActive}
               onClick={() => setActiveFilter(filter)}
-              className={`shrink-0 rounded-full px-4 py-2 text-sm font-bold transition-colors ${
+              className={`shrink-0 rounded-full px-4 py-2 font-heading text-sm font-bold transition-colors ${
                 isActive ? "bg-brand-dark-blue text-white" : "text-gray-500 hover:bg-gray-100"
               }`}
             >

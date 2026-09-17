@@ -2,16 +2,22 @@
 
 @theme {
   /* Brand Book — Identidad Corporativa Eumedical (09/2021) */
-  --color-brand-dark-blue: #1e4865;
-  --color-brand-medium-aqua: #79b19c;
-  --color-brand-light-aqua: #bfd7cd;
-  --color-brand-pale-sage: #d9e4de;
-  --color-brand-orange: #e79f1a;
-  --color-brand-yellow: #efbc0b;
-  --color-brand-grey: #f2f2f2;
+  /* Alias 1:1 con la nomenclatura del manual (--eumedical-navy, --eumedical-teal, etc.):
+     mismos valores hex exactos, expuestos con los nombres de clase que ya usa el resto del código. */
+  --color-brand-dark-blue: #1e4865; /* eumedical-navy */
+  --color-brand-medium-aqua: #79b19c; /* eumedical-teal — estado activo, acentos secundarios */
+  --color-brand-light-aqua: #bfd7cd; /* eumedical-teal-light — bordes suaves, fondos de cards */
+  --color-brand-pale-sage: #d9e4de; /* eumedical-teal-lighter — fondos muy sutiles, separadores */
+  --color-brand-orange: #e79f1a; /* eumedical-amber — CTAs secundarios */
+  --color-brand-yellow: #efbc0b; /* eumedical-gold — CTAs primarios, alertas, badges */
+  --color-brand-grey: #f2f2f2; /* eumedical-gray-light — fondo de página */
 
-  --font-display: "Varela Round", "Segoe UI", sans-serif;
-  --font-heading: "Didact Gothic", "Segoe UI", sans-serif;
+  /* Titulares (H1/H2, saludo): "Dinosaur Book" no está disponible como webfont
+     — fallback redondeado/amigable del manual. Peso máximo permitido: medium (500), nunca bold. */
+  --font-display: "Quicksand", "Comfortaa", "Baloo 2", sans-serif;
+  /* Subtítulos (nombres de profesionales, categorías, labels de sección): tipografía secundaria del manual. */
+  --font-heading: "Didact Gothic", "Work Sans", "Nunito Sans", sans-serif;
+  /* Cuerpo de texto largo (descripciones, recetas, historial): única sans-serif de sistema permitida. */
   --font-body: Arial, Helvetica, sans-serif;
 }
 
@@ -24,7 +30,8 @@
   h2,
   h3,
   h4 {
-    @apply font-display text-brand-dark-blue;
+    /* El manual marca bold como "don't" explícito para titulares: máximo peso medium (500). */
+    @apply font-display font-medium text-brand-dark-blue;
   }
 
   :focus-visible {
