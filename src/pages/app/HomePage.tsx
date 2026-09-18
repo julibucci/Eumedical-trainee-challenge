@@ -48,7 +48,7 @@ export default function HomePage() {
     <div className="flex flex-col gap-6">
       {/* Saludo */}
       <div>
-        <h2 className="font-display text-2xl font-medium text-brand-dark-blue sm:text-3xl">Hola, {firstName} 👋</h2>
+        <h2 className="font-display text-2xl font-medium text-brand-dark-blue sm:text-3xl">Hola, {firstName}</h2>
         <p className="mt-1 text-gray-500">{currentPatient.today}</p>
       </div>
 
