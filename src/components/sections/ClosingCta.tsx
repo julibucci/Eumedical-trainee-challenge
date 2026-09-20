@@ -16,7 +16,7 @@ export function ClosingCta() {
 
   return (
     <section className="bg-white px-6 py-20 sm:py-24">
-      <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2.5rem] bg-[linear-gradient(45deg,#1e4865,#153347)] px-8 py-16 text-center sm:px-16 sm:py-20">
+      <div className="relative mx-auto max-w-[1400px] overflow-hidden rounded-[2.5rem] bg-[linear-gradient(45deg,#1e4865,#153347)] px-8 py-16 text-center sm:px-16 sm:py-20">
         <EumedicalCross
           size={320}
           color="#ffffff"

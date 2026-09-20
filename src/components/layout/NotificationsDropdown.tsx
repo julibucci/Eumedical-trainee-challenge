@@ -8,8 +8,6 @@ import { EumedicalCross } from "../ui/EumedicalCross";
 const ICON_SIZE = 18;
 const ICON_STROKE_WIDTH = 1.75;
 
-// Gold = alertas (manual de marca). "alta" vs "media" se distingue por intensidad
-// (fill sólido vs. wash), no por hue — no hay rojo genérico de librería para urgencia.
 const RECETA_URGENCY_STYLES: Record<NonNullable<Notification["urgency"]>, { bg: string; color: string }> = {
   alta: { bg: "bg-brand-yellow", color: "text-brand-dark-blue" },
   media: { bg: "bg-brand-yellow/20", color: "text-brand-dark-blue" },
@@ -34,7 +32,7 @@ type NotificationsDropdownProps = {
   onMarkAllAsRead: () => void;
 };
 
-/** Dropdown de la campana del header: mismo patrón de trigger + panel flotante que el ex-UserMenu del sidebar. */
+/** Dropdown de la campana de notificaciones */
 export function NotificationsDropdown({ notifications, unreadCount, onMarkAsRead, onMarkAllAsRead }: NotificationsDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -66,9 +64,9 @@ export function NotificationsDropdown({ notifications, unreadCount, onMarkAsRead
     if (notification.href) navigate(notification.href);
   }
 
+  /* Ver mas notificaciones --> Lleva a mock */
   function handleViewAll() {
     setIsOpen(false);
-    // Placeholder: en producción llevaría a una vista completa de notificaciones — ver README.
     toast("Vista completa de notificaciones (próximamente)");
   }
 

@@ -3,11 +3,7 @@ type ContactIconProps = {
   className?: string;
 };
 
-/**
- * Íconos propios para email/teléfono/ubicación de Contacto — no son de una librería genérica:
- * mismo lenguaje de construcción que el símbolo de marca (formas simples, radios grandes, un
- * solo color vía `currentColor`, sin sombras ni degradados).
- */
+
 
 export function MailIcon({ size = 20, className = "" }: ContactIconProps) {
   return (

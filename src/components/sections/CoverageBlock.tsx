@@ -48,7 +48,7 @@ export function CoverageBlock() {
         className="pointer-events-none absolute -bottom-32 -left-28 rotate-[-15deg] opacity-[0.06]"
       />
 
-      <div className="relative mx-auto grid w-full max-w-6xl gap-16 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+      <div className="relative mx-auto grid w-full max-w-[1400px] gap-16 lg:grid-cols-[1.2fr_1fr] lg:items-center">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-orange">{t.eyebrow}</p>
           <h2 className="mt-4 font-display text-4xl font-bold text-white sm:text-5xl">{t.title}</h2>

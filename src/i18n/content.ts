@@ -71,7 +71,6 @@ export type SiteContent = {
     address: string;
     hours: string;
     linkedinAriaReal: string;
-    linkedinAriaPlaceholder: string;
     form: {
       nombre: string;
       apellido: string;
@@ -248,7 +247,6 @@ export const content: Record<Language, SiteContent> = {
       address: "Madrid, España",
       hours: "Lunes a viernes, 9:00 a 19:00 (CET)",
       linkedinAriaReal: "Perfil de LinkedIn de Eumedical (abre en una pestaña nueva)",
-      linkedinAriaPlaceholder: "Perfil de LinkedIn de Eumedical (próximamente)",
       form: {
         nombre: "NOMBRE",
         apellido: "APELLIDO",
@@ -439,7 +437,6 @@ export const content: Record<Language, SiteContent> = {
       address: "Madrid, Spain",
       hours: "Monday to Friday, 9:00 AM to 7:00 PM (CET)",
       linkedinAriaReal: "Eumedical's LinkedIn profile (opens in a new tab)",
-      linkedinAriaPlaceholder: "Eumedical's LinkedIn profile (coming soon)",
       form: {
         nombre: "FIRST NAME",
         apellido: "LAST NAME",

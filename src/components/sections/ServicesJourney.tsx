@@ -16,7 +16,7 @@ export function ServicesJourney() {
 
   return (
     <section id="servicios" className="scroll-mt-24 bg-white px-6 py-20 sm:py-24">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-[1400px]">
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-orange">{t.eyebrow}</p>
         <h2 className="mt-3 max-w-2xl font-display text-3xl font-bold text-brand-dark-blue sm:text-4xl">{t.title}</h2>
 

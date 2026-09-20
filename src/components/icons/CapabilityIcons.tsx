@@ -2,7 +2,6 @@ import { ArrowRight, Globe, Hand, Home, Monitor, Power, Smartphone, Stethoscope,
 import { CrossBadge } from "./CrossBadge";
 
 type CapabilityIconProps = {
-  /** "light" para tarjetas de fondo oscuro/saturado, "dark" para tarjetas claras. */
   tone?: "light" | "dark";
   className?: string;
 };
@@ -12,13 +11,8 @@ const TONE_STROKE = {
   dark: "text-brand-dark-blue",
 } as const;
 
-/**
- * Íconos compuestos propios de las 4 capacidades del bento grid — construidos
- * combinando varias formas outline (no un ícono genérico de una sola pieza),
- * en línea con el estilo bicolor azul marca + naranja del Brand Book.
- */
 
-/** Red médica propia: globo + 3 profesionales distribuidos alrededor, cada uno con la cruz de marca. */
+/** Red medica propia: globo + 3 profesionales distribuidos alrededor, cada uno con la cruz de marca. */
 export function RedMedicaIcon({ tone = "light", className = "" }: CapabilityIconProps) {
   const stroke = TONE_STROKE[tone];
   return (

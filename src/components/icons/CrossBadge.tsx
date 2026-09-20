@@ -5,11 +5,7 @@ type CrossBadgeProps = {
   className?: string;
 };
 
-/**
- * Insignia circular blanca con el símbolo de marca adentro — el acento "cruz" que se repite en
- * los íconos compuestos de capacidades y servicios (nunca un ícono de librería genérico). Sin
- * sombra ni degradado a propósito: el Brand Book pide el símbolo sin efectos.
- */
+
 export function CrossBadge({ size = 11, className = "" }: CrossBadgeProps) {
   return (
     <span

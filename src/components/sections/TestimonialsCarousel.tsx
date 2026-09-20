@@ -166,7 +166,7 @@ export function TestimonialsCarousel() {
 
   return (
     <section className="bg-white px-6 pb-20 pt-8 sm:pb-24 sm:pt-10">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-[1400px]">
         <div className="text-center">
           <h2 className="font-display text-3xl font-bold text-brand-dark-blue sm:text-4xl">{t.title}</h2>
           <div className="mt-4 flex items-center justify-center gap-2">
