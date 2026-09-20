@@ -1,10 +1,10 @@
 import type { GlobeMarker } from "../types/globeMarker";
 
 /**
- * Mockeados: España/Portugal/Italia/Francia son los países reales mencionados en "Médicos a
- * domicilio" (ver capabilitiesBento en src/i18n/content.ts). El resto son una muestra razonable
- * de otros continentes para ilustrar "cobertura en más de 80 países" — en producción esta lista
- * debería salir de un dataset real de cobertura de la empresa, si existe. Ver README.
+ * Mocked: Spain/Portugal/Italy/France are the real countries mentioned in "Médicos a
+ * domicilio" (see capabilitiesBento in src/i18n/content.ts). The rest are a reasonable sample
+ * of other continents to illustrate "coverage in more than 80 countries" — in production this list
+ * should come from a real company coverage dataset, if one exists. See README.
  */
 export const globeMarkers: GlobeMarker[] = [
   { id: "es", label: "España", lat: 40.4168, lon: -3.7038 },

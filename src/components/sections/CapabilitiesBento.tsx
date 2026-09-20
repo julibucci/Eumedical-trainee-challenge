@@ -13,7 +13,7 @@ type CardStyle = {
   tone: "light" | "dark";
 };
 
-/** Estilos por tarjeta: 1 sólida en azul marca + 3 en tintes suaves (mismo criterio que Badge/PrescriptionCard: fondo saturado solo con texto blanco, nunca texto de color sobre fondo saturado). */
+/** Per-card styles: 1 solid in brand blue + 3 in soft tints (same criteria as Badge/PrescriptionCard: saturated background only with white text, never colored text on a saturated background). */
 const CARD_STYLES: Record<string, CardStyle> = {
   "red-medica": {
     container: "bg-brand-dark-blue",
@@ -94,7 +94,7 @@ function CapabilityCard({
   );
 }
 
-/** Bento grid de las 4 capacidades principales: misma altura en todas las tarjetas (la "grande" se distingue por ancho y color, no por desnivel), cada una con acordeón propio de "Más información" y efecto hover de zoom. */
+/** Bento grid of the 4 main capabilities: same height on all cards (the "big" one stands out by width and color, not by height difference), each with its own "Más información" accordion and a zoom hover effect. */
 export function CapabilitiesBento() {
   const language = useLanguageStore((state) => state.language);
   const t = content[language].capabilitiesBento;

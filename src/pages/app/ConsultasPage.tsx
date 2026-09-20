@@ -11,17 +11,17 @@ import type { Consultation } from "../../types/consultation";
 const ICON_STROKE_WIDTH = 1.75;
 
 function handleReschedule(consultation: Consultation) {
-  // Mock: en producción abriría el flujo real de reprogramación con confirmación — ver README.
+  // Mock: in production this would open the real rescheduling flow with confirmation — see README.
   toast(`Reagendar consulta con ${consultation.doctor} (mock)`);
 }
 
 function handleCancel(consultation: Consultation) {
-  // Mock: en producción pediría confirmación antes de cancelar — ver README.
+  // Mock: in production this would ask for confirmation before cancelling — see README.
   toast(`Consulta con ${consultation.doctor} cancelada (mock)`);
 }
 
 function handleNewConsultation() {
-  // Mock: no se implementa el flujo completo de reserva en este alcance — ver README.
+  // Mock: the full booking flow is not implemented in this scope — see README.
   toast("Flujo de reserva de consulta — próximamente");
 }
 

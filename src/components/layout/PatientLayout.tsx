@@ -48,7 +48,7 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
 
   function handleLogout() {
     onNavigate();
-    // Sesión en memoria
+    // Session in memory
     logout();
     navigate("/login");
   }
@@ -102,14 +102,14 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
   );
 }
 
-/** Layout compartido por todas las rutas /app/*: sidebar + header + <Outlet /> para el contenido. */
+/** Layout shared by all /app/* routes: sidebar + header + <Outlet /> for the content. */
 export function PatientLayout() {
   const location = useLocation();
   const sessionUser = useAuthStore((state) => state.user);
   const avatarUrl = useAuthStore((state) => state.avatarUrl);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const sectionTitle = SECTION_TITLES[location.pathname] ?? "Inicio";
-  // Sin sesión (ej. se entró directo a /app), se muestra la paciente mock por default.
+  // No session (e.g. /app was entered directly), the mock patient is shown by default.
   const displayInitials = sessionUser?.initials ?? currentPatient.initials;
   const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications();
 
@@ -124,13 +124,13 @@ export function PatientLayout() {
 
   return (
     <div className="min-h-screen bg-brand-grey lg:flex">
-      {/* Sidebar fijo a la izquierda, 250px de ancho, fondo azul marca. Se oculta en pantallas < lg y se reemplaza por un drawer. */}
+      {/* Fixed sidebar on the left, 250px wide, brand blue background. Hidden on screens < lg and replaced by a drawer. */}
       <aside
         className={`fixed inset-y-0 left-0 z-40 flex w-[250px] flex-col overflow-hidden bg-brand-dark-blue px-5 py-8 transition-transform lg:translate-x-0 ${
           isMobileNavOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* Fondo decorativo: cruz blanca grande, opacidad 6% */}
+        {/* Decorative background: large white cross, 6% opacity */}
         <EumedicalCross
           size={220}
           color="#ffffff"

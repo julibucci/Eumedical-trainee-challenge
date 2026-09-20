@@ -7,8 +7,8 @@ import { Checkbox } from "../../components/ui/Checkbox";
 import { Input } from "../../components/ui/Input";
 import { useAuthStore } from "../../store/authStore";
 
-// Los mensajes de validación son internos (no se muestran): el texto que ve el
-// usuario sale de FIELD_ERROR_MESSAGES, fijo por campo.
+// Validation messages are internal (not shown): the text the
+// user sees comes from FIELD_ERROR_MESSAGES, fixed per field.
 const loginSchema = z.object({
   email: z.string().min(1).email(),
   password: z.string().min(1).regex(/(?=.*[A-Z])(?=.*[0-9])/),
@@ -38,15 +38,15 @@ export default function LoginPage() {
 
     const result = loginSchema.safeParse({ email, password });
     if (!result.success) {
-      // Solo se muestra el error del primer campo inválido (email antes que contraseña).
+      // Only the error of the first invalid field is shown (email before password).
       setErrorField(result.error.issues[0].path[0] as Field);
       return;
     }
 
     setErrorField(null);
     setIsSubmitting(true);
-    // Login mockeado: sin backend real, cualquier combinación válida entra.
-    // No hay nombre real que leer, así que se estima a partir del email para el saludo de /app.
+    // Mocked login: no real backend, any valid combination gets in.
+    // There is no real name to read, so it is estimated from the email for the /app greeting.
     loginWithEmail(email);
     window.setTimeout(() => navigate("/app"), 500);
   }

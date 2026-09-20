@@ -1,17 +1,15 @@
 import { EumedicalCross } from "./EumedicalCross";
 
 type EumedicalLogoProps = {
-  /** "dark" = logo sobre fondo oscuro (texto blanco); el símbolo "+" siempre es naranja. */
   theme?: "light" | "dark";
-  /** Tamaño de fuente en px; el símbolo y el espaciado escalan proporcionalmente. */
   size?: number;
   className?: string;
 };
 
 /**
- * Wordmark del Brand Book (sec. 1.1). Tamaño mínimo de reproducción: 140x30px
- * — no usar `size` por debajo de ~24 en contextos reales. El área de seguridad
- * (padding) se calcula en em, en relación al ancho de la "e" del propio texto.
+ * Brand Book wordmark (sec. 1.1). Minimum reproduction size: 140x30px
+ * — do not use `size` below ~24 in real contexts. The safety area
+ * (padding) is computed in em, relative to the width of the "e" in the text itself.
  */
 export function EumedicalLogo({ theme = "light", size = 24, className = "" }: EumedicalLogoProps) {
   const textColor = theme === "dark" ? "text-white" : "text-brand-dark-blue";

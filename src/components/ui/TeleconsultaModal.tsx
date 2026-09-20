@@ -28,7 +28,7 @@ function initialsFromDoctorName(fullName: string): string {
   return `${first}${last}`.toUpperCase();
 }
 
-/** Simula la pantalla de una videoconsulta (mock: no hay video/audio real, solo UI). */
+/** Simulates a videoconsultation screen (mock: no real video/audio, UI only). */
 export function TeleconsultaModal({ isOpen, onClose, doctor, specialty }: TeleconsultaModalProps) {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [isMicOn, setIsMicOn] = useState(true);
@@ -50,7 +50,7 @@ export function TeleconsultaModal({ isOpen, onClose, doctor, specialty }: Teleco
       <DialogBackdrop className="fixed inset-0 bg-black/60" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <DialogPanel className="relative w-full max-w-lg overflow-hidden rounded-2xl bg-white shadow-xl">
-          {/* Área de video simulada: mismo degradado 45° navy→teal de marca. */}
+          {/* Simulated video area: same 45° navy→teal brand gradient. */}
           <div className="relative flex h-72 flex-col items-center justify-center gap-2 overflow-hidden bg-[linear-gradient(45deg,#1e4865_0%,#79b19c_200%)] px-6 text-center">
             <EumedicalCross
               size={160}
@@ -75,7 +75,7 @@ export function TeleconsultaModal({ isOpen, onClose, doctor, specialty }: Teleco
             ) : null}
           </div>
 
-          {/* Controles: mic/cámara son decorativos (mock), "Finalizar" cierra el modal. */}
+          {/* Controls: mic/camera are decorative (mock), "Finalizar" closes the modal. */}
           <div className="flex items-center justify-center gap-4 px-6 py-5">
             <button
               type="button"
@@ -111,8 +111,8 @@ export function TeleconsultaModal({ isOpen, onClose, doctor, specialty }: Teleco
                 <VideoOff aria-hidden="true" size={ICON_SIZE} strokeWidth={ICON_STROKE_WIDTH} />
               )}
             </button>
-            {/* Excepción intencional a "nunca rojo": el botón de colgar es una convención
-                universal de videollamada (Zoom/Meet/Teams), no se percibe como un error. */}
+            {/* Intentional exception to "nunca rojo": the hang-up button is a universal
+                videocall convention (Zoom/Meet/Teams), it is not perceived as an error. */}
             <button
               type="button"
               onClick={onClose}

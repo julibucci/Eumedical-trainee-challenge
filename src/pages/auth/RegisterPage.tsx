@@ -7,13 +7,13 @@ import { Checkbox } from "../../components/ui/Checkbox";
 import { Input } from "../../components/ui/Input";
 import { useAuthStore } from "../../store/authStore";
 
-// Los mensajes visibles salen de FIELD_ERROR_MESSAGES; este schema solo decide
-// qué campo es inválido y en qué orden (ver LoginPage para el mismo patrón).
+// The visible messages come from FIELD_ERROR_MESSAGES; this schema only decides
+// which field is invalid and in what order (see LoginPage for the same pattern).
 const registerSchema = z
   .object({
     firstName: z.string().min(1),
     lastName: z.string().min(1),
-    // Solo se aceptan cuentas @gmail.com o @yahoo.com.ar (pedido puntual, no es una regla general de email).
+    // Only @gmail.com or @yahoo.com.ar accounts are accepted (specific request, not a general email rule).
     email: z.string().min(1).regex(/^[^\s@]+@(gmail\.com|yahoo\.com\.ar)$/i),
     password: z.string().min(6),
     confirmPassword: z.string(),
@@ -66,8 +66,8 @@ export default function RegisterPage() {
     setErrorField((current) => (current === field ? null : current));
   }
 
-  // Revalida solo `field` contra el estado actual; si sigue inválido, lo muestra.
-  // Se usa en onBlur para chequear campo por campo, además del chequeo completo al submit.
+  // Re-validates only `field` against the current state; if still invalid, shows it.
+  // Used on onBlur to check field by field, in addition to the full check on submit.
   function checkFieldOnBlur(field: Field) {
     return () => {
       const result = registerSchema.safeParse(values);
@@ -82,16 +82,16 @@ export default function RegisterPage() {
 
     const result = registerSchema.safeParse(values);
     if (!result.success) {
-      // Solo se muestra el error del primer campo inválido, de arriba hacia abajo.
+      // Only the error of the first invalid field is shown, top to bottom.
       setErrorField(result.error.issues[0].path[0] as Field);
       return;
     }
 
     setErrorField(null);
     setIsSubmitting(true);
-    // Registro mockeado: sin backend real, se simula la creación de cuenta y se
-    // ingresa directo como si el registro hubiera loggeado al usuario.
-    // En producción esto llamaría a un endpoint real (con confirmación de email, etc.) — ver README.
+    // Mocked registration: no real backend, account creation is simulated and the
+    // user is signed in directly as if registration had logged them in.
+    // In production this would call a real endpoint (with email confirmation, etc.) — see README.
     registerWithName(values.firstName, values.lastName);
     window.setTimeout(() => navigate("/app"), 500);
   }

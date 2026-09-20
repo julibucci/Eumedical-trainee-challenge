@@ -3,7 +3,7 @@ type FieldErrorProps = {
   message: string;
 };
 
-/** Globo de error flotante para campos de formulario. Se ancla debajo del input que lo referencia por `aria-describedby`. */
+/** Floating error bubble for form fields. It anchors below the input that references it via `aria-describedby`. */
 export function FieldError({ id, message }: FieldErrorProps) {
   return (
     <div id={id} role="alert" className="relative mt-2 flex items-start gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 shadow-md">

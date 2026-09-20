@@ -3,7 +3,7 @@ import { EumedicalCross } from "../ui/EumedicalCross";
 import { content } from "../../i18n/content";
 import { useLanguageStore } from "../../store/languageStore";
 
-/** Banner de cierre antes de Contacto: degradé a 45° (mismo criterio de ángulo del Brand Book) */
+/** Closing banner before Contact: 45° gradient (same angle criteria as the Brand Book) */
 export function ClosingCta() {
   const language = useLanguageStore((state) => state.language);
   const t = content[language].closingCta;

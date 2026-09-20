@@ -12,11 +12,7 @@ type CategoryStyle = {
 
 const CATEGORY_ORDER: ServiceCategory[] = ["atencion-medica", "coordinacion-logistica", "soporte-especializado"];
 
-/**
- * Colores accesibles por categoría: el mismo criterio que ya usan Badge/PrescriptionCard en el resto
- * del proyecto (fondo tinte suave + texto oscuro, nunca el color de marca sólido como texto —
- * ni el verde ni el naranja de marca cumplen AA sobre fondo claro).
- */
+
 const CATEGORY_STYLES: Record<ServiceCategory, CategoryStyle> = {
   "atencion-medica": { labelColor: "text-emerald-800", cardBg: "bg-brand-pale-sage", iconColor: "text-emerald-800" },
   "coordinacion-logistica": { labelColor: "text-brand-dark-blue", cardBg: "bg-brand-dark-blue/10", iconColor: "text-brand-dark-blue" },
@@ -37,7 +33,7 @@ function ServiceCard({ service, description, style }: { service: Service; descri
   );
 }
 
-/** Grid extendido de los 14 servicios reales, agrupados en las 3 categorías del Brand Book. */
+/** Extended grid of the 14 real services, grouped into the 3 Brand Book categories. */
 export function ExtendedServicesGrid() {
   const language = useLanguageStore((state) => state.language);
   const t = content[language].extendedServicesGrid;

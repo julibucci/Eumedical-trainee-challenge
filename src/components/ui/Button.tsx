@@ -6,8 +6,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   isLoading?: boolean;
 };
 
-// Gold = CTA primario, amber = CTA secundario (manual de marca). El amber en fill sólido
-// no llega a 4.5:1 con texto blanco ni navy — por eso el secundario va en outline, no en fill.
+
 const VARIANTS = {
   primary: "bg-brand-yellow text-brand-dark-blue hover:bg-brand-yellow/90",
   secondary: "border-2 border-brand-orange bg-transparent text-brand-dark-blue hover:bg-brand-orange/10",

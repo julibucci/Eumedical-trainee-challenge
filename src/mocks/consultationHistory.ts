@@ -1,6 +1,6 @@
 import type { Consultation } from "../types/consultation";
 
-/** `daysUntil` no aplica a consultas pasadas (queda en 0) — ver types/consultation.ts. */
+/** `daysUntil` does not apply to past consultations (stays 0) — see types/consultation.ts. */
 export const consultationHistory: Consultation[] = [
   {
     id: "hist-1",

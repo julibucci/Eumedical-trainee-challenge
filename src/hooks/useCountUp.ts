@@ -7,12 +7,12 @@ function easeOutCubic(t: number) {
 }
 
 type UseCountUpOptions = {
-  /** La animación arranca recién cuando esto pasa a `true` (ej. scroll-into-view). */
+  /** The animation only starts once this becomes `true` (e.g. scroll-into-view). */
   startWhen?: boolean;
   duration?: number;
 };
 
-/** Cuenta de 0 a `target` con easing ease-out, una sola vez por instancia — respeta prefers-reduced-motion. */
+/** Counts from 0 to `target` with ease-out easing, once per instance — respects prefers-reduced-motion. */
 export function useCountUp(target: number, options?: UseCountUpOptions) {
   const { startWhen = true, duration = DEFAULT_DURATION_MS } = options ?? {};
   const [value, setValue] = useState(0);

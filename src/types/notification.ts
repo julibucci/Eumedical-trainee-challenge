@@ -4,11 +4,11 @@ export interface Notification {
   id: string;
   type: NotificationType;
   message: string;
-  /** Ya formateado para mostrar, ej. "Hace 2 horas", "Ayer", "12 sep". */
+  /** Already formatted for display, e.g. "Hace 2 horas", "Ayer", "12 sep". */
   timestamp: string;
   read: boolean;
-  /** Solo aplica a type "receta": decide si el ícono va en rojo (alta) o ámbar (media). */
+  /** Only applies to type "receta": decides whether the icon is red (high) or amber (medium). */
   urgency?: "alta" | "media";
-  /** Ruta a la que navega al hacer click, si aplica. */
+  /** Route to navigate to on click, if applicable. */
   href?: string;
 }

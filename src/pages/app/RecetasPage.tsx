@@ -11,8 +11,8 @@ import type { Prescription, PrescriptionStatus } from "../../types/prescription"
 
 const ICON_STROKE_WIDTH = 1.75;
 
-// El texto de la etiqueta siempre va en navy (teal/gold/rojo como color de texto no llegan a
-// 4.5:1 AA sobre blanco): la diferenciación por estado se resuelve con un punto de color.
+// The label text is always navy (teal/gold/red as text color do not reach
+// 4.5:1 AA on white): the differentiation by status is resolved with a colored dot.
 const SECTIONS: Array<{ status: PrescriptionStatus; label: string; dot: string }> = [
   { status: "vigente", label: "Vigentes", dot: "bg-brand-medium-aqua" },
   { status: "porVencer", label: "Por vencer (próximos 5 días)", dot: "bg-brand-yellow" },
@@ -28,12 +28,12 @@ const FILTERS: Array<{ key: StatusFilter; label: string }> = [
 ];
 
 function handleDownload(prescription: Prescription) {
-  // Mock: no hay PDF real. En producción descargaría la receta real del backend — ver README.
+  // Mock: there is no real PDF. In production it would download the real prescription from the backend — see README.
   toast(`Descargando receta de ${prescription.medication} (mock)`);
 }
 
 function handleRequestPrescription() {
-  // Mock: no hay flujo real de solicitud. En producción se enviaría al médico — ver README.
+  // Mock: there is no real request flow. In production it would be sent to the doctor — see README.
   toast("Solicitud de receta — próximamente");
 }
 
@@ -41,7 +41,7 @@ export default function RecetasPage() {
   const [activeFilter, setActiveFilter] = useState<StatusFilter>("activas");
   const groups = groupPrescriptionsByStatus(prescriptions);
 
-  // Por defecto ("activas") se ven vigentes + por vencer; "vencidas" aísla las expiradas.
+  // By default ("activas") active + about-to-expire are shown; "vencidas" isolates the expired ones.
   const visibleSections = SECTIONS.filter(({ status }) => {
     if (activeFilter === "todas") return true;
     if (activeFilter === "vencidas") return status === "vencida";

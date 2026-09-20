@@ -5,7 +5,7 @@ import { content } from "../../i18n/content";
 import { useLanguageStore, type Language } from "../../store/languageStore";
 import { useActiveSection } from "../../hooks/useActiveSection";
 
-/** Banderas como SVG propio: los emoji de bandera no renderizan como imagen en Windows (Segoe UI Emoji muestra las letras del país en vez del ícono). */
+/** Flags as own SVG: flag emoji do not render as an image on Windows (Segoe UI Emoji shows the country letters instead of the icon). */
 function FlagUS() {
   return (
     <svg width="18" height="12.6" viewBox="0 0 20 14" aria-hidden="true" className="shrink-0 rounded-sm">
@@ -35,7 +35,7 @@ const LANGUAGE_OPTIONS: { code: Language; label: string; Flag: () => ReactNode }
   { code: "es", label: "Español", Flag: FlagES },
 ];
 
-/** Selector con dropdown */
+/** Selector with dropdown */
 function LanguageSwitcher() {
   const [isOpen, setIsOpen] = useState(false);
   const language = useLanguageStore((state) => state.language);
@@ -113,7 +113,7 @@ function LanguageSwitcher() {
   );
 }
 
-/** Header de la landing de marketing: logo, nav ancla a secciones, selector de idioma real (ver useLanguageStore) y CTA. */
+/** Marketing landing header: logo, anchor nav to sections, real language selector (see useLanguageStore) and CTA. */
 export function MarketingHeader() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const language = useLanguageStore((state) => state.language);

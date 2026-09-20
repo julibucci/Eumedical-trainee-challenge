@@ -8,9 +8,9 @@ export interface PatientProfile {
   phone: string;
   insurance: string;
   age: number | null;
-  /** Object URL de la foto subida (mock, no persiste — ver README). null = usar iniciales. */
+  /** Object URL of the uploaded photo (mock, does not persist — see README). null = use initials. */
   avatarUrl: string | null;
-  /** Opcional: el paciente decide si quiere registrar enfermedades preexistentes. */
+  /** Optional: the patient decides whether to record pre-existing conditions. */
   preexistingConditions: string;
 }
 

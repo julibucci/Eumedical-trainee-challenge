@@ -23,7 +23,7 @@ import {
 import { RedMedicaIcon, AtencionDigitalIcon, TecnologiaIcon, MedicosDomicilioIcon } from "../components/icons/CapabilityIcons";
 import type { Capability, JourneyStep, Metric, Service } from "../types/service";
 
-/** Texto (title/description/detail) en src/i18n/content.ts, keyed por `id`. */
+/** Text (title/description/detail) in src/i18n/content.ts, keyed by `id`. */
 export const capabilities: Capability[] = [
   { id: "red-medica", icon: RedMedicaIcon },
   { id: "atencion-digital", icon: AtencionDigitalIcon },
@@ -31,7 +31,7 @@ export const capabilities: Capability[] = [
   { id: "medicos-domicilio", icon: MedicosDomicilioIcon },
 ];
 
-/** Título en src/i18n/content.ts, keyed por `id`. */
+/** Title in src/i18n/content.ts, keyed by `id`. */
 export const journeySteps: JourneyStep[] = [
   { id: "teleconsulta", icon: Video },
   { id: "coordinacion", icon: Globe },
@@ -40,9 +40,9 @@ export const journeySteps: JourneyStep[] = [
   { id: "seguimiento", icon: ClipboardCheck },
 ];
 
-/** `title` es el nombre de marca (ya en inglés, no se traduce); `description` en src/i18n/content.ts. */
+/** `title` is the brand name (already in English, not translated); `description` in src/i18n/content.ts. */
 export const services: Service[] = [
-  // Atención médica
+  // Medical care
   { id: "fit-to-fly", category: "atencion-medica", title: "Fit to fly", icon: Plane, secondaryIcon: ShieldCheck },
   { id: "house-calls", category: "atencion-medica", title: "House calls", icon: House, secondaryIcon: Stethoscope },
   {
@@ -66,7 +66,7 @@ export const services: Service[] = [
     icon: UserCheck,
     secondaryIcon: Stethoscope,
   },
-  // Coordinación y logística
+  // Coordination and logistics
   { id: "ambulance-coordination", category: "coordinacion-logistica", title: "Ambulance coordination", icon: Ambulance },
   {
     id: "clinic-coordination",
@@ -89,7 +89,7 @@ export const services: Service[] = [
     icon: Headset,
     secondaryIcon: Clock,
   },
-  // Soporte especializado
+  // Specialized support
   {
     id: "medical-audits",
     category: "soporte-especializado",
@@ -127,7 +127,7 @@ export const services: Service[] = [
   },
 ];
 
-/** Label en src/i18n/content.ts, keyed por `id`. */
+/** Label in src/i18n/content.ts, keyed by `id`. */
 export const trustMetrics: Metric[] = [
   { id: "pacientes", value: "90k" },
   { id: "medicos", value: "250" },

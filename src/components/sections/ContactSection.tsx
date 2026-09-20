@@ -26,7 +26,7 @@ const EMPTY_FORM: ContactFormData = { name: "", lastName: "", email: "", message
 
 const LINKEDIN_URL = "https://www.linkedin.com/company/eumedical/?originalSubdomain=es";
 
-/** Contacto asimétrico: info a un lado, formulario como card flotante del otro, sobre un contenedor gris claro con la cruz de marca decorativa. */
+/** Asymmetric contact: info on one side, form as a floating card on the other, over a light gray container with the decorative brand cross. */
 export function ContactSection() {
   const language = useLanguageStore((state) => state.language);
   const t = content[language].contactSection;
@@ -58,15 +58,15 @@ export function ContactSection() {
 
     const result = contactSchema.safeParse(form);
     if (!result.success) {
-      // Solo se muestra el error del primer campo inválido, en el orden del formulario.
+      // Only the error of the first invalid field is shown, in form order.
       setErrorField(result.error.issues[0].path[0] as Field);
       return;
     }
 
     setErrorField(null);
     setIsSubmitting(true);
-    // Mock: sin backend real. En producción esto dispararía un email real o una
-    // integración con un CRM — ver README.
+    // Mock: no real backend. In production this would trigger a real email or a
+    // CRM integration — see README.
     window.setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);

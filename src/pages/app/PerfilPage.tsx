@@ -107,8 +107,8 @@ export default function PerfilPage() {
   const conditionsId = useId();
   const avatarInputId = useId();
   const avatarInputRef = useRef<HTMLInputElement>(null);
-  // Preview sin guardar todavía: se revoca si se reemplaza, se cancela o se abandona la edición.
-  // Una vez guardada (handleSaveProfile), la URL pasa a ser del estado global — no se revoca acá.
+  // Unsaved preview: revoked if replaced, cancelled or if editing is abandoned.
+  // Once saved (handleSaveProfile), the URL becomes part of the global state — not revoked here.
   const pendingPreviewUrlRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -132,9 +132,9 @@ export default function PerfilPage() {
 
   function handleSaveProfile(event: FormEvent) {
     event.preventDefault();
-    // Mock: sin backend real, los cambios solo viven en el estado de esta página — ver README.
+    // Mock: no real backend, the changes only live in this page's state — see README.
     setProfile(formValues);
-    // La foto también se refleja en el avatar del header/sidebar (estado global de sesión).
+    // The photo is also reflected in the header/sidebar avatar (global session state).
     setHeaderAvatarUrl(formValues.avatarUrl);
     pendingPreviewUrlRef.current = null;
     setIsEditing(false);
@@ -155,7 +155,7 @@ export default function PerfilPage() {
       return;
     }
 
-    // Mock: sin backend real, la foto vive como object URL en memoria del navegador.
+    // Mock: no real backend, the photo lives as an object URL in browser memory.
     if (pendingPreviewUrlRef.current) URL.revokeObjectURL(pendingPreviewUrlRef.current);
     const url = URL.createObjectURL(file);
     pendingPreviewUrlRef.current = url;
@@ -185,7 +185,7 @@ export default function PerfilPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {/* Datos personales */}
+        {/* Personal data */}
         <div className="rounded-2xl bg-white p-6">
           <div className="flex items-center justify-between gap-4">
             <h3 className="flex items-center gap-2 font-display text-lg font-medium text-brand-dark-blue">
@@ -327,7 +327,7 @@ export default function PerfilPage() {
         </div>
 
         <div className="flex flex-col gap-6">
-          {/* Preferencias */}
+          {/* Preferences */}
           <div className="rounded-2xl bg-white p-6">
             <h3 className="font-display text-lg font-medium text-brand-dark-blue">Preferencias de notificaciones</h3>
             <div className="mt-2 flex flex-col divide-y divide-gray-100">
@@ -352,7 +352,7 @@ export default function PerfilPage() {
             </div>
           </div>
 
-          {/* Contactar soporte */}
+          {/* Contact support */}
           <div className="rounded-2xl bg-white p-6">
             <h3 className="font-display text-lg font-medium text-brand-dark-blue">Contactar soporte</h3>
             <div className="mt-4 grid grid-cols-2 gap-3">

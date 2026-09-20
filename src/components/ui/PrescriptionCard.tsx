@@ -14,7 +14,7 @@ const STATUS_CONFIG: Record<
 > = {
   vigente: { badgeVariant: "vigente", badgeLabel: "Vigente", iconBg: "bg-brand-medium-aqua/20", iconColor: "text-brand-dark-blue" },
   porVencer: { badgeVariant: "porVencer", badgeLabel: "Por vencer", iconBg: "bg-brand-yellow/20", iconColor: "text-brand-dark-blue" },
-  // "vencida" es un estado realmente negativo (receta expirada) — única excepción al rojo.
+  // "vencida" is a truly negative state (expired prescription) — the only exception where red is used.
   vencida: { badgeVariant: "vencida", badgeLabel: "Vencida", iconBg: "bg-red-100", iconColor: "text-red-700" },
 };
 
@@ -23,7 +23,7 @@ type PrescriptionCardProps = {
   onDownload?: (prescription: Prescription) => void;
 };
 
-/** Tarjeta reutilizable de receta: el estado determina color, badge y botón de acción. */
+
 export function PrescriptionCard({ prescription, onDownload }: PrescriptionCardProps) {
   const [isRequested, setIsRequested] = useState(false);
   const config = STATUS_CONFIG[prescription.status];
@@ -31,7 +31,7 @@ export function PrescriptionCard({ prescription, onDownload }: PrescriptionCardP
   const needsRenewal = prescription.status === "porVencer" || prescription.status === "vencida";
 
   function handleRequestRenewal() {
-    // Mock: en producción esto notificaría al médico emisor — ver README.
+    // Mock: in production this would notify the issuing doctor — see README.
     setIsRequested(true);
     toast.success(`Renovación solicitada para ${prescription.medication}`);
   }

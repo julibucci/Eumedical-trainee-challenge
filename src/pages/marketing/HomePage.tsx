@@ -10,7 +10,7 @@ import { TestimonialsCarousel } from "../../components/sections/TestimonialsCaro
 import { ClosingCta } from "../../components/sections/ClosingCta";
 import { ContactSection } from "../../components/sections/ContactSection";
 
-/** Landing de marketing (Parte A): reinterpretación propia del rebranding de Eumedical sobre el Brand Book real. */
+/** Marketing landing (Part A): own reinterpretation of Eumedical's rebranding on top of the real Brand Book. */
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">

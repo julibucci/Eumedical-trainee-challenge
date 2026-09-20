@@ -7,7 +7,7 @@ type LanguageState = {
   setLanguage: (language: Language) => void;
 };
 
-/** Idioma de la landing de marketing — separado de useAuthStore, no tiene relación con la sesión. */
+/** Language of the marketing landing — separate from useAuthStore, unrelated to the session. */
 export const useLanguageStore = create<LanguageState>((set) => ({
   language: "es",
   setLanguage: (language) => set({ language }),

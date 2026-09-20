@@ -8,9 +8,9 @@ type SessionUser = {
 
 type AuthState = {
   user: SessionUser | null;
-  /** Foto subida en Perfil y soporte — vive acá para reflejarse también en el avatar del header. */
+  /** Photo uploaded in Profile and support — lives here so it is also reflected in the header avatar. */
   avatarUrl: string | null;
-  /** Login mockeado: no hay backend, así que el nombre se estima a partir del email. */
+  /** Mocked login: there is no backend, so the name is estimated from the email. */
   loginWithEmail: (email: string) => void;
   registerWithName: (firstName: string, lastName: string) => void;
   setAvatarUrl: (avatarUrl: string | null) => void;

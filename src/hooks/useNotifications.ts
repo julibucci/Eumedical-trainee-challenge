@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { notifications as initialNotifications } from "../mocks/notifications";
 import type { Notification } from "../types/notification";
 
-/** Estado de leídas/no leídas en memoria (useState) — se resetea al recargar, igual que el resto de los mocks de esta app. */
+/** Read/unread state in memory (useState) — resets on reload, like the rest of this app's mocks. */
 export function useNotifications() {
   const [notifications, setNotifications] = useState<Notification[]>(initialNotifications);
 

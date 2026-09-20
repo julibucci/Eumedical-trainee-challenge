@@ -4,9 +4,9 @@ import { useLanguageStore } from "../../store/languageStore";
 import heroImage from "../../assets/images/hero-teleconsulta.webp";
 
 /**
- * Hero asimétrico: sin banner de fondo — la foto entra como una tarjeta flotante propia al
- * costado del texto (mismo lenguaje visual redondeado del resto de la página), no como imagen
- * de fondo. La cruz de marca sigue de recurso gráfico decorativo (Brand Book sec. 2.1).
+ * Asymmetric hero: no background banner — the photo comes in as its own floating card at the
+ * side of the text (same rounded visual language as the rest of the page), not as a background
+ * image. The brand cross remains as a decorative graphic resource (Brand Book sec. 2.1).
  */
 export function Hero() {
   const language = useLanguageStore((state) => state.language);

@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand Book — Identidad Corporativa Eumedical (09/2021) */
-  /* Alias 1:1 con la nomenclatura del manual (--eumedical-navy, --eumedical-teal, etc.):
-     mismos valores hex exactos, expuestos con los nombres de clase que ya usa el resto del código. */
+  /* Brand Book — Eumedical Corporate Identity (09/2021) */
+  /* 1:1 aliases of the manual's naming (--eumedical-navy, --eumedical-teal, etc.):
+     same exact hex values, exposed under the class names the rest of the code already uses. */
   --color-brand-dark-blue: #1e4865; /* eumedical-navy */
-  --color-brand-medium-aqua: #79b19c; /* eumedical-teal — estado activo, acentos secundarios */
-  --color-brand-light-aqua: #bfd7cd; /* eumedical-teal-light — bordes suaves, fondos de cards */
-  --color-brand-pale-sage: #d9e4de; /* eumedical-teal-lighter — fondos muy sutiles, separadores */
-  --color-brand-orange: #e79f1a; /* eumedical-amber — CTAs secundarios */
-  --color-brand-yellow: #efbc0b; /* eumedical-gold — CTAs primarios, alertas, badges */
-  --color-brand-grey: #f2f2f2; /* eumedical-gray-light — fondo de página */
+  --color-brand-medium-aqua: #79b19c; /* eumedical-teal — active state, secondary accents */
+  --color-brand-light-aqua: #bfd7cd; /* eumedical-teal-light — soft borders, card backgrounds */
+  --color-brand-pale-sage: #d9e4de; /* eumedical-teal-lighter — very subtle backgrounds, dividers */
+  --color-brand-orange: #e79f1a; /* eumedical-amber — secondary CTAs */
+  --color-brand-yellow: #efbc0b; /* eumedical-gold — primary CTAs, alerts, badges */
+  --color-brand-grey: #f2f2f2; /* eumedical-gray-light — page background */
 
-  /* Titulares (H1/H2, saludo): "Dinosaur Book" no está disponible como webfont
-     — fallback redondeado/amigable del manual. Peso máximo permitido: medium (500), nunca bold. */
+  /* Headlines (H1/H2, greeting): "Dinosaur Book" is not available as a webfont
+     — the manual's rounded/friendly fallback. Maximum allowed weight: medium (500), never bold. */
   --font-display: "Quicksand", "Comfortaa", "Baloo 2", sans-serif;
-  /* Subtítulos (nombres de profesionales, categorías, labels de sección): tipografía secundaria del manual. */
+  /* Subheadings (professional names, categories, section labels): the manual's secondary typeface. */
   --font-heading: "Didact Gothic", "Work Sans", "Nunito Sans", sans-serif;
-  /* Cuerpo de texto largo (descripciones, recetas, historial): única sans-serif de sistema permitida. */
+  /* Long body text (descriptions, prescriptions, history): the only system sans-serif allowed. */
   --font-body: Arial, Helvetica, sans-serif;
 }
 
@@ -30,7 +30,7 @@
   h2,
   h3,
   h4 {
-    /* El manual marca bold como "don't" explícito para titulares: máximo peso medium (500). */
+    /* The manual explicitly marks bold as a "don't" for headlines: maximum weight is medium (500). */
     @apply font-display font-medium text-brand-dark-blue;
   }
 

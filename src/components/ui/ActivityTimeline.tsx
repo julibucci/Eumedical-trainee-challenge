@@ -14,7 +14,7 @@ type ActivityTimelineProps = {
   events: ActivityEvent[];
 };
 
-/** Timeline vertical genérica: un ícono circular por tipo de evento + fecha/título/subtítulo. */
+/** Generic vertical timeline: one circular icon per event type + date/title/subtitle. */
 export function ActivityTimeline({ events }: ActivityTimelineProps) {
   return (
     <ol className="relative flex flex-col gap-6">

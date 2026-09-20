@@ -5,7 +5,7 @@ import { content } from "../../i18n/content";
 import { useLanguageStore } from "../../store/languageStore";
 import type { Metric } from "../../types/service";
 
-/** Separa "90k" en { target: 90, suffix: "k" } — solo se anima la parte numérica. */
+/** Splits "90k" into { target: 90, suffix: "k" } — only the numeric part is animated. */
 function parseMetricValue(value: string) {
   const match = value.match(/^(\d+)(.*)$/);
   return { target: match ? Number(match[1]) : 0, suffix: match ? match[2] : "" };
@@ -27,7 +27,7 @@ function MetricItem({ metric, label, startWhen }: { metric: Metric; label: strin
   );
 }
 
-/** Grid de métricas reales de la empresa: los números cuentan de 0 al valor final al entrar en el viewport. */
+/** Grid of the company's real metrics: the numbers count up from 0 to the final value on entering the viewport. */
 export function TrustMetrics() {
   const { ref, isInView } = useInView<HTMLDivElement>(0.35);
   const language = useLanguageStore((state) => state.language);

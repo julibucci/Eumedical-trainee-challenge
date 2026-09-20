@@ -15,7 +15,7 @@ type AuthLayoutProps = {
   children: ReactNode;
 };
 
-/** División de dos columnas para pantallas de autenticación (login, registro, recuperar contraseña). */
+/** Two-column split for authentication screens (login, register, password recovery). */
 export function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <div className="flex min-h-screen flex-col lg:flex-row">
