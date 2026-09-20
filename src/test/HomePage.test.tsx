@@ -8,7 +8,7 @@ function RecetasStub() {
 }
 
 describe("HomePage", () => {
-  it("al hacer click en 'Ver receta' navega a /app/recetas", () => {
+  it("clicking 'Ver receta' navigates to /app/recetas", () => {
     render(
       <MemoryRouter initialEntries={["/app"]}>
         <Routes>

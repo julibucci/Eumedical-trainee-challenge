@@ -3,7 +3,7 @@ import { EumedicalCross } from "../ui/EumedicalCross";
 import { content } from "../../i18n/content";
 import { useLanguageStore } from "../../store/languageStore";
 
-/** Banner de cierre antes de Contacto: degradé a 45° (mismo criterio de ángulo del Brand Book, y misma combinación azul→verde que ya usa la tarjeta de "Próxima consulta" del área de paciente), sello de marca, y 3 puntos de confianza reforzando el mensaje sin repetir las métricas del Hero. */
+/** Banner de cierre antes de Contacto: degradé a 45° (mismo criterio de ángulo del Brand Book) */
 export function ClosingCta() {
   const language = useLanguageStore((state) => state.language);
   const t = content[language].closingCta;

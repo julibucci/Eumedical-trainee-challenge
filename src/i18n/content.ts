@@ -72,17 +72,17 @@ export type SiteContent = {
     hours: string;
     linkedinAriaReal: string;
     form: {
-      nombre: string;
-      apellido: string;
+      name: string;
+      lastName: string;
       email: string;
       emailPlaceholder: string;
-      mensaje: string;
+      message: string;
       messagePlaceholder: string;
       privacyPrefix: string;
       privacyLink: string;
       privacySuffix: string;
       submit: string;
-      errors: { nombre: string; apellido: string; email: string; mensaje: string; aceptaTerminos: string };
+      errors: { name: string; lastName: string; email: string; message: string; acceptTerms: string };
     };
     success: { title: string; message: string; resetLink: string };
   };
@@ -248,22 +248,22 @@ export const content: Record<Language, SiteContent> = {
       hours: "Lunes a viernes, 9:00 a 19:00 (CET)",
       linkedinAriaReal: "Perfil de LinkedIn de Eumedical (abre en una pestaña nueva)",
       form: {
-        nombre: "NOMBRE",
-        apellido: "APELLIDO",
+        name: "NOMBRE",
+        lastName: "APELLIDO",
         email: "EMAIL",
         emailPlaceholder: "nombre@correo.com",
-        mensaje: "Mensaje",
+        message: "Mensaje",
         messagePlaceholder: "Ej: necesito una consulta médica antes de viajar a Italia la semana que viene.",
         privacyPrefix: "Acepto la ",
         privacyLink: "política de privacidad",
         privacySuffix: " y el tratamiento de mis datos para gestionar mi consulta",
         submit: "Enviar mensaje",
         errors: {
-          nombre: "Este campo es obligatorio.",
-          apellido: "Este campo es obligatorio.",
+          name: "Este campo es obligatorio.",
+          lastName: "Este campo es obligatorio.",
           email: "Ingresá un correo electrónico válido.",
-          mensaje: "Contanos en qué podemos ayudarte.",
-          aceptaTerminos: "Tenés que aceptar la política de privacidad para continuar.",
+          message: "Contanos en qué podemos ayudarte.",
+          acceptTerms: "Tenés que aceptar la política de privacidad para continuar.",
         },
       },
       success: {
@@ -438,22 +438,22 @@ export const content: Record<Language, SiteContent> = {
       hours: "Monday to Friday, 9:00 AM to 7:00 PM (CET)",
       linkedinAriaReal: "Eumedical's LinkedIn profile (opens in a new tab)",
       form: {
-        nombre: "FIRST NAME",
-        apellido: "LAST NAME",
+        name: "FIRST NAME",
+        lastName: "LAST NAME",
         email: "EMAIL",
         emailPlaceholder: "name@email.com",
-        mensaje: "Message",
+        message: "Message",
         messagePlaceholder: "E.g.: I need a medical consultation before traveling to Italy next week.",
         privacyPrefix: "I accept the ",
         privacyLink: "privacy policy",
         privacySuffix: " and the processing of my data to manage my inquiry",
         submit: "Send message",
         errors: {
-          nombre: "This field is required.",
-          apellido: "This field is required.",
+          name: "This field is required.",
+          lastName: "This field is required.",
           email: "Enter a valid email address.",
-          mensaje: "Tell us how we can help you.",
-          aceptaTerminos: "You need to accept the privacy policy to continue.",
+          message: "Tell us how we can help you.",
+          acceptTerms: "You need to accept the privacy policy to continue.",
         },
       },
       success: {
