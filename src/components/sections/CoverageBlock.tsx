@@ -4,8 +4,7 @@ import { content } from "../../i18n/content";
 import { useLanguageStore } from "../../store/languageStore";
 import { globeMarkers } from "../../mocks/globeMarkers";
 
-// d3-geo + topojson-client + el dataset de países (world-atlas) pesan ~130kB gzip — se separan en
-// su propio chunk async para no engordar el bundle principal con algo que solo se usa acá abajo.
+
 const InteractiveGlobe = lazy(() => import("../ui/InteractiveGlobe").then((module) => ({ default: module.InteractiveGlobe })));
 
 function getGlobeSize() {
@@ -16,11 +15,7 @@ function getGlobeSize() {
   return 420;
 }
 
-/**
- * Bloque de cobertura global: ocupa el viewport completo (`min-h-screen`) para que al saltar acá
- * desde el nav no se alcance a ver, ni asome, el título de la sección siguiente — fondo azul
- * marca sólido + la cruz de marca como recurso decorativo de fondo (mismo criterio que el Hero).
- */
+
 export function CoverageBlock() {
   const language = useLanguageStore((state) => state.language);
   const t = content[language].coverageBlock;
@@ -37,9 +32,6 @@ export function CoverageBlock() {
   return (
     <section
       id="cobertura"
-      // min-h-screen (100vh) centraba el contenido contando una altura que en la práctica
-      // queda parcialmente tapada por el header sticky + el scroll-mt-24 usado para
-      // llegar acá desde el nav — restamos esos 6rem para que el centrado sea real.
       className="relative flex min-h-[calc(100vh-6rem)] scroll-mt-24 items-center overflow-hidden bg-brand-dark-blue px-6 py-24"
     >
       <EumedicalCross

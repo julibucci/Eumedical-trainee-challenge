@@ -1,7 +1,7 @@
 export interface ContactFormData {
-  nombre: string;
-  apellido: string;
+  name: string;
+  lastName: string;
   email: string;
-  mensaje: string;
-  aceptaTerminos: boolean;
+  message: string;
+  acceptTerms: boolean;
 }

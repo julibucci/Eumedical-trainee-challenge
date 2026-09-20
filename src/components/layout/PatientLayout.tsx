@@ -48,7 +48,7 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
 
   function handleLogout() {
     onNavigate();
-    // Sesión en memoria (zustand), no hay nada persistido que limpiar — ver README.
+    // Sesión en memoria
     logout();
     navigate("/login");
   }
@@ -68,8 +68,6 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
             end={end}
             onClick={onNavigate}
             className={({ isActive }) =>
-              // Fill teal + texto blanco no llega a 4.5:1 (AA) — el estado activo se marca con
-              // ícono teal + fondo sutil, no con el teal como color de texto/fill de bloque.
               `flex items-center gap-3 rounded-xl px-3 py-2.5 font-heading text-sm transition-colors ${
                 isActive ? "bg-white/10 font-bold text-white" : "text-brand-light-aqua hover:bg-white/5"
               }`
@@ -126,13 +124,13 @@ export function PatientLayout() {
 
   return (
     <div className="min-h-screen bg-brand-grey lg:flex">
-      {/* Sidebar: fija en desktop (lg+), drawer off-canvas en mobile. */}
+      {/* Sidebar fijo a la izquierda, 250px de ancho, fondo azul marca. Se oculta en pantallas < lg y se reemplaza por un drawer. */}
       <aside
         className={`fixed inset-y-0 left-0 z-40 flex w-[250px] flex-col overflow-hidden bg-brand-dark-blue px-5 py-8 transition-transform lg:translate-x-0 ${
           isMobileNavOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* Watermark de marca: la cruz sola, a opacidad baja, como recurso ilustrativo de fondo. */}
+        {/* Fondo decorativo: cruz blanca grande, opacidad 6% */}
         <EumedicalCross
           size={220}
           color="#ffffff"

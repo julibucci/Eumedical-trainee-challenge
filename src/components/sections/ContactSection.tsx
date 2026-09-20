@@ -13,16 +13,16 @@ import { useLanguageStore } from "../../store/languageStore";
 import type { ContactFormData } from "../../types/contact";
 
 const contactSchema = z.object({
-  nombre: z.string().min(1),
-  apellido: z.string().min(1),
+  name: z.string().min(1),
+  lastName: z.string().min(1),
   email: z.string().min(1).email(),
-  mensaje: z.string().min(1),
-  aceptaTerminos: z.literal(true),
+  message: z.string().min(1),
+  acceptTerms: z.literal(true),
 });
 
 type Field = keyof ContactFormData;
 
-const EMPTY_FORM: ContactFormData = { nombre: "", apellido: "", email: "", mensaje: "", aceptaTerminos: false };
+const EMPTY_FORM: ContactFormData = { name: "", lastName: "", email: "", message: "", acceptTerms: false };
 
 const LINKEDIN_URL = "https://www.linkedin.com/company/eumedical/?originalSubdomain=es";
 
@@ -48,7 +48,7 @@ export function ContactSection() {
     });
   }
 
-  function updateField(field: "nombre" | "apellido" | "email" | "mensaje", value: string) {
+  function updateField(field: "name" | "lastName" | "email" | "message", value: string) {
     setForm((current) => ({ ...current, [field]: value }));
     clearError(field);
   }
@@ -168,24 +168,24 @@ export function ContactSection() {
                 <form className="flex flex-col gap-5" onSubmit={handleSubmit} noValidate>
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Input
-                      label={t.form.nombre}
+                      label={t.form.name}
                       autoComplete="given-name"
                       required
                       aria-required="true"
-                      value={form.nombre}
-                      onChange={(event) => updateField("nombre", event.target.value)}
-                      onBlur={() => validateOnBlur("nombre")}
-                      error={errorField === "nombre" ? t.form.errors.nombre : undefined}
+                      value={form.name}
+                      onChange={(event) => updateField("name", event.target.value)}
+                      onBlur={() => validateOnBlur("name")}
+                      error={errorField === "name" ? t.form.errors.name : undefined}
                     />
                     <Input
-                      label={t.form.apellido}
+                      label={t.form.lastName}
                       autoComplete="family-name"
                       required
                       aria-required="true"
-                      value={form.apellido}
-                      onChange={(event) => updateField("apellido", event.target.value)}
-                      onBlur={() => validateOnBlur("apellido")}
-                      error={errorField === "apellido" ? t.form.errors.apellido : undefined}
+                      value={form.lastName}
+                      onChange={(event) => updateField("lastName", event.target.value)}
+                      onBlur={() => validateOnBlur("lastName")}
+                      error={errorField === "lastName" ? t.form.errors.lastName : undefined}
                     />
                   </div>
 
@@ -204,7 +204,7 @@ export function ContactSection() {
 
                   <div className="flex flex-col gap-1.5">
                     <label htmlFor="contact-message" className="text-xs font-bold uppercase tracking-wide text-gray-500">
-                      {t.form.mensaje}
+                      {t.form.message}
                       <span className="text-red-500" aria-hidden="true">
                         {" "}
                         *
@@ -215,17 +215,17 @@ export function ContactSection() {
                       rows={5}
                       required
                       aria-required="true"
-                      aria-invalid={errorField === "mensaje"}
-                      aria-describedby={errorField === "mensaje" ? "contact-message-error" : undefined}
+                      aria-invalid={errorField === "message"}
+                      aria-describedby={errorField === "message" ? "contact-message-error" : undefined}
                       placeholder={t.form.messagePlaceholder}
-                      value={form.mensaje}
-                      onChange={(event) => updateField("mensaje", event.target.value)}
-                      onBlur={() => validateOnBlur("mensaje")}
+                      value={form.message}
+                      onChange={(event) => updateField("message", event.target.value)}
+                      onBlur={() => validateOnBlur("message")}
                       className={`w-full resize-none rounded-lg border px-3.5 py-2.5 text-brand-dark-blue placeholder:text-gray-400 ${
-                        errorField === "mensaje" ? "border-2 border-red-500" : "border-gray-300"
+                        errorField === "message" ? "border-2 border-red-500" : "border-gray-300"
                       }`}
                     />
-                    {errorField === "mensaje" && <FieldError id="contact-message-error" message={t.form.errors.mensaje} />}
+                    {errorField === "message" && <FieldError id="contact-message-error" message={t.form.errors.message} />}
                   </div>
 
                   <Checkbox
@@ -238,13 +238,13 @@ export function ContactSection() {
                         {t.form.privacySuffix}
                       </>
                     }
-                    checked={form.aceptaTerminos}
+                    checked={form.acceptTerms}
                     onChange={(event) => {
-                      setForm((current) => ({ ...current, aceptaTerminos: event.target.checked }));
-                      clearError("aceptaTerminos");
+                      setForm((current) => ({ ...current, acceptTerms: event.target.checked }));
+                      clearError("acceptTerms");
                     }}
-                    onBlur={() => validateOnBlur("aceptaTerminos")}
-                    error={errorField === "aceptaTerminos" ? t.form.errors.aceptaTerminos : undefined}
+                    onBlur={() => validateOnBlur("acceptTerms")}
+                    error={errorField === "acceptTerms" ? t.form.errors.acceptTerms : undefined}
                   />
 
                   <Button type="submit" fullWidth isLoading={isSubmitting} className="rounded-full">
