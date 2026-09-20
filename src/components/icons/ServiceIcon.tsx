@@ -3,16 +3,16 @@ import { CrossBadge } from "./CrossBadge";
 
 type ServiceIconProps = {
   icon: LucideIcon;
-  /** Ícono secundario en una insignia blanca, para componer el concepto (ver Brand Book: íconos compuestos, no de una sola pieza). */
+  /** Secondary icon on a white badge, to compose the concept (see Brand Book: composite icons, not single-piece). */
   secondaryIcon?: LucideIcon;
-  /** Clase de color de marca para el ícono principal, ej. "text-emerald-800". */
+  /** Brand color class for the main icon, e.g. "text-emerald-800". */
   accentClassName: string;
-  /** Fondo del círculo que envuelve el ícono principal. */
+  /** Background of the circle wrapping the main icon. */
   circleClassName?: string;
   label: string;
 };
 
-/** Ícono compuesto reutilizable para las 14 tarjetas de servicios extendidos: círculo de color de categoría + forma principal + insignia (segundo ícono o cruz de marca). */
+/** Reusable composite icon for the 14 extended service cards: category-colored circle + main shape + badge (second icon or brand cross). */
 export function ServiceIcon({ icon: Icon, secondaryIcon: Secondary, accentClassName, circleClassName = "bg-white", label }: ServiceIconProps) {
   return (
     <span className="relative inline-flex h-14 w-14 shrink-0 items-center justify-center" role="img" aria-label={label}>

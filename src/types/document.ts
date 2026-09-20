@@ -5,9 +5,9 @@ export interface MedicalDocument {
   name: string;
   type: DocumentType;
   issuer: string;
-  /** Ya formateada para mostrar, ej. "12 sep 2024". */
+  /** Already formatted for display, e.g. "12 sep 2024". */
   date: string;
-  /** Ya formateado, ej. "340 KB" o "1.2 MB". */
+  /** Already formatted, e.g. "340 KB" or "1.2 MB". */
   size: string;
   format: "PDF" | "JPG" | "PNG";
 }

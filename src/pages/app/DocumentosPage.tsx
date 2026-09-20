@@ -57,7 +57,7 @@ export default function DocumentosPage() {
     }
 
     if (accepted.length > 0) {
-      // Mock: solo se agrega al estado local, sin subir a ningún backend real — ver README.
+      // Mock: only added to local state, without uploading to any real backend — see README.
       setDocuments((current) => [...accepted, ...current]);
       toast.success(accepted.length === 1 ? "Estudio agregado" : `${accepted.length} estudios agregados`);
     }

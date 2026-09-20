@@ -28,9 +28,9 @@ const PREP_CHECKLIST = [
 export default function HomePage() {
   const navigate = useNavigate();
   const sessionUser = useAuthStore((state) => state.user);
-  // Sin sesión (ej. se entró directo a /app), se muestra la paciente mock por default.
+  // No session (e.g. /app was entered directly), the mock patient is shown by default.
   const firstName = sessionUser?.firstName ?? currentPatient.firstName;
-  // Mock: sin backend real, el progreso del checklist solo vive en esta página — ver README.
+  // Mock: no real backend, the checklist progress only lives in this page — see README.
   const [completedPrep, setCompletedPrep] = useState<Record<string, boolean>>({});
   const [isTeleconsultaOpen, setIsTeleconsultaOpen] = useState(false);
 
@@ -39,23 +39,23 @@ export default function HomePage() {
   }
 
   function handleViewMoreActivity() {
-    // Placeholder: no hay una vista dedicada de "toda la actividad" (mezcla consultas,
-    // documentos y recetas) — en producción llevaría a un historial unificado. Ver README.
+    // Placeholder: there is no dedicated "all activity" view (it mixes consultations,
+    // documents and prescriptions) — in production it would lead to a unified history. See README.
     toast("Vista completa de actividad reciente (próximamente)");
   }
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Saludo */}
+      {/* Greeting */}
       <div>
         <h2 className="font-display text-2xl font-medium text-brand-dark-blue sm:text-3xl">Hola, {firstName}</h2>
         <p className="mt-1 text-gray-500">{currentPatient.today}</p>
       </div>
 
-      {/* Próxima consulta */}
-      {/* Degradado 45° navy→teal (paleta de marca). El segundo stop se ubica en 200%, no en 100%,
-          para que el punto más claro del card nunca pase de una mezcla 50/50 con navy — así el
-          texto blanco mantiene ≥4.5:1 (WCAG AA) en cualquier esquina, incluida la más "teal". */}
+      {/* Next consultation */}
+      {/* 45° navy→teal gradient (brand palette). The second stop sits at 200%, not 100%,
+          so the lightest point of the card never goes past a 50/50 mix with navy — that way the
+          white text keeps ≥4.5:1 (WCAG AA) at every corner, including the "teal" one. */}
       <section className="relative overflow-hidden rounded-2xl bg-[linear-gradient(45deg,#1e4865_0%,#79b19c_200%)] p-6 sm:p-8">
         <EumedicalCross
           size={180}
@@ -131,7 +131,7 @@ export default function HomePage() {
         </ul>
       </section>
 
-      {/* Alerta de receta */}
+      {/* Prescription alert */}
       <section className="flex flex-col items-start gap-4 rounded-2xl border border-brand-yellow/40 bg-brand-yellow/10 p-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-start gap-3">
           <AlertTriangle aria-hidden="true" size={20} strokeWidth={ICON_STROKE_WIDTH} className="mt-0.5 shrink-0 text-brand-orange" />
@@ -149,9 +149,9 @@ export default function HomePage() {
         </Button>
       </section>
 
-      {/* Grid 65/35 */}
+      {/* 65/35 grid */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[13fr_7fr]">
-        {/* Actividad reciente */}
+        {/* Recent activity */}
         <section className="rounded-2xl bg-white p-6">
           <h3 className="font-display text-lg font-medium text-brand-dark-blue">Actividad reciente</h3>
           <div className="mt-6">
@@ -167,7 +167,7 @@ export default function HomePage() {
         </section>
 
         <div className="flex flex-col gap-6">
-          {/* Siguientes consultas */}
+          {/* Upcoming consultations */}
           <section className="rounded-2xl bg-white p-6">
             <h3 className="font-display text-lg font-medium text-brand-dark-blue">Siguientes consultas</h3>
             <ul className="mt-4 flex flex-col gap-4">
@@ -191,7 +191,7 @@ export default function HomePage() {
             </Link>
           </section>
 
-          {/* Documentos recientes */}
+          {/* Recent documents */}
           <section className="rounded-2xl bg-white p-6">
             <h3 className="font-display text-lg font-medium text-brand-dark-blue">Documentos recientes</h3>
             <ul className="mt-4 flex flex-col gap-4">
@@ -212,7 +212,7 @@ export default function HomePage() {
             </Link>
           </section>
 
-          {/* Ayuda */}
+          {/* Help */}
           <section className="flex items-start gap-3 rounded-2xl bg-brand-light-aqua/25 p-6">
             <Headphones aria-hidden="true" size={22} strokeWidth={ICON_STROKE_WIDTH} className="mt-0.5 shrink-0 text-brand-dark-blue" />
             <div>

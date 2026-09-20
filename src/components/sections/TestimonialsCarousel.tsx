@@ -4,7 +4,8 @@ import { AVERAGE_RATING, testimonials } from "../../mocks/testimonials";
 import { content } from "../../i18n/content";
 import { useLanguageStore } from "../../store/languageStore";
 
-/** "Cards" por segundo — a este ritmo cada tarjeta tarda ~11s en pasar: lento y continuo, no un salto cada tanto. */
+/* Comentarios
+/** "Cards" per second — at this pace each card takes ~11s to go by: slow and continuous, not a jump every so often. */
 const AUTO_SCROLL_SPEED = 0.09;
 const MANUAL_TRANSITION_MS = 500;
 const RESUME_AUTO_SCROLL_DELAY_MS = 3000;
@@ -39,11 +40,11 @@ function Stars({ rating }: { rating: number }) {
 }
 
 /**
- * Carrusel de testimonios con desplazamiento automático continuo y lento (no saltos discretos):
- * la posición vive en un ref y se escribe directamente en el `transform` del track vía
- * requestAnimationFrame, sin pasar por React, para que la animación no dispare 60 re-renders
- * por segundo. El loop infinito usa una copia triple del array: al cruzar el límite de la copia
- * central se resta/suma el largo real sin transición — matemáticamente idéntico, invisible al ojo.
+ * Testimonials carousel with continuous, slow automatic scrolling (no discrete jumps):
+ * the position lives in a ref and is written directly to the track's `transform` via
+ * requestAnimationFrame, without going through React, so the animation does not trigger 60 re-renders
+ * per second. The infinite loop uses a triple copy of the array: on crossing the limit of the
+ * central copy, the real length is subtracted/added without a transition.
  */
 export function TestimonialsCarousel() {
   const language = useLanguageStore((state) => state.language);
@@ -101,7 +102,7 @@ export function TestimonialsCarousel() {
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
-  // Loop persistente de autoplay continuo — no se reinicia por hover/reduced-motion, solo lee refs.
+  // Persistent continuous autoplay loop — not restarted by hover/reduced-motion, it only reads refs.
   useEffect(() => {
     function tick(timestamp: number) {
       const last = lastFrameTimeRef.current ?? timestamp;
@@ -122,7 +123,7 @@ export function TestimonialsCarousel() {
       if (rafRef.current !== undefined) cancelAnimationFrame(rafRef.current);
       lastFrameTimeRef.current = undefined;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- el tick solo lee refs, no hace falta reiniciarlo por estado
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- the tick only reads refs, no need to restart it on state change
   }, []);
 
   useEffect(() => {

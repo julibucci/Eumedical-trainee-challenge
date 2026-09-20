@@ -6,7 +6,7 @@ import worldTopology from "world-atlas/countries-110m.json";
 import type { GlobeMarker } from "../../types/globeMarker";
 
 const topology = worldTopology as unknown as Topology<{ countries: GeometryCollection; land: GeometryCollection }>;
-/** Calculado una sola vez al cargar el módulo, no por instancia ni por render. */
+/** Computed once on module load, not per instance nor per render. */
 const countries = feature(topology, topology.objects.countries).features;
 
 const INITIAL_ROTATION: [number, number, number] = [-15, -25, 0];
@@ -17,19 +17,19 @@ const MAX_PITCH = 80;
 
 type InteractiveGlobeProps = {
   markers: GlobeMarker[];
-  /** Diámetro en px. */
+  /** Diameter in px. */
   size?: number;
-  /** false = vista estática, sin drag/autorotate/pulso (útil para validar la paleta). */
+  /** false = static view, no drag/autorotate/pulse (useful for validating the palette). */
   interactive?: boolean;
   className?: string;
 };
 
 /**
- * Globo terráqueo en proyección ortográfica, SVG puro, con fronteras reales (Natural Earth 110m
- * vía world-atlas + topojson-client). Reescribe el `d` de cada país directamente en el DOM en
- * cada frame (sin pasar por el re-render de React) para que el drag y el autorotate no
- * recalculen los ~177 países como elementos JSX en cada frame — solo se recalculan sus strings
- * de path, que se escriben a mano en los nodos ya montados.
+ * Orthographic-projection globe, pure SVG, with real borders (Natural Earth 110m
+ * via world-atlas + topojson-client). Rewrites each country's `d` directly in the DOM on
+ * every frame (bypassing React's re-render) so that drag and autorotate do not
+ * recompute the ~177 countries as JSX elements on every frame — only their path strings
+ * are recomputed, written by hand into the already-mounted nodes.
  */
 export function InteractiveGlobe({ markers, size = 320, interactive = true, className = "" }: InteractiveGlobeProps) {
   const [hoveredCountryId, setHoveredCountryId] = useState<string | null>(null);
@@ -93,7 +93,7 @@ export function InteractiveGlobe({ markers, size = 320, interactive = true, clas
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
-  // Autorotate: requestAnimationFrame, no setInterval — se frena solo mientras se arrastra o con reduced-motion.
+  // Autorotate: requestAnimationFrame, not setInterval — it only stops while dragging or with reduced-motion.
   useEffect(() => {
     if (!interactive || prefersReducedMotion) return;
 
@@ -113,7 +113,7 @@ export function InteractiveGlobe({ markers, size = 320, interactive = true, clas
       if (rafRef.current !== undefined) cancelAnimationFrame(rafRef.current);
       lastFrameTimeRef.current = undefined;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- applyRotation cierra sobre projection/pathGenerator (estables) y markers (no cambia en uso real)
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- applyRotation closes over projection/pathGenerator (stable) and markers (does not change in real use)
   }, [interactive, prefersReducedMotion, projection, pathGenerator]);
 
   useEffect(() => {

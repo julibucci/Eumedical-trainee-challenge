@@ -14,7 +14,7 @@ const TYPE_CONFIG: Record<DocumentType, { icon: LucideIcon; bg: string }> = {
 };
 
 function handleDownload(document: MedicalDocument) {
-  // Mock: no hay archivo real. En producción descargaría el binario real del backend — ver README.
+  // Mock: there is no real file
   toast(`Descargando "${document.name}" (mock)`);
 }
 
@@ -22,7 +22,7 @@ type DocumentRowProps = {
   document: MedicalDocument;
 };
 
-/** Fila de documento con vista previa in-line expandible (mock, sin archivo real). */
+/** Document row with expandable inline preview (mock, no real file). */
 export function DocumentRow({ document }: DocumentRowProps) {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const previewId = useId();

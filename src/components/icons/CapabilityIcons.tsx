@@ -12,7 +12,7 @@ const TONE_STROKE = {
 } as const;
 
 
-/** Red medica propia: globo + 3 profesionales distribuidos alrededor, cada uno con la cruz de marca. */
+/** Own medical network: globe + 3 professionals distributed around it, each with the brand cross. */
 export function RedMedicaIcon({ tone = "light", className = "" }: CapabilityIconProps) {
   const stroke = TONE_STROKE[tone];
   return (
@@ -33,7 +33,7 @@ export function RedMedicaIcon({ tone = "light", className = "" }: CapabilityIcon
   );
 }
 
-/** Atención médica digital 24/7: mano + smartphone con un médico "en pantalla" y badge 24h. */
+/** Digital medical care 24/7: hand + smartphone with a doctor "on screen" and a 24h badge. */
 export function AtencionDigitalIcon({ tone = "light", className = "" }: CapabilityIconProps) {
   const stroke = TONE_STROKE[tone];
   return (
@@ -56,7 +56,7 @@ export function AtencionDigitalIcon({ tone = "light", className = "" }: Capabili
   );
 }
 
-/** Tecnología avanzada: dispositivos (monitor, smartphone, wifi, encendido) conectados entre sí. */
+/** Advanced technology: devices (monitor, smartphone, wifi, power) connected to each other. */
 export function TecnologiaIcon({ tone = "light", className = "" }: CapabilityIconProps) {
   const stroke = TONE_STROKE[tone];
   const lineColor = tone === "light" ? "rgba(255,255,255,0.55)" : "rgba(30,72,101,0.35)";
@@ -77,7 +77,7 @@ export function TecnologiaIcon({ tone = "light", className = "" }: CapabilityIco
   );
 }
 
-/** Médicos a domicilio: profesional identificado con la cruz de marca, camino a una casa que también la lleva. */
+/** Home doctors: professional identified with the brand cross, on the way to a house that also carries it. */
 export function MedicosDomicilioIcon({ tone = "light", className = "" }: CapabilityIconProps) {
   const stroke = TONE_STROKE[tone];
   return (

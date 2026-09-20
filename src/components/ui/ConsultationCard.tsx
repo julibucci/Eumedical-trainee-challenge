@@ -28,14 +28,14 @@ function pluralDays(days: number): string {
 
 type ConsultationCardProps = {
   consultation: Consultation;
-  /** La consulta más próxima: borde + franja destacada y único lugar donde aparece "Unirme". */
+  /** The nearest consultation: highlighted border + stripe and the only place where "Unirme" appears. */
   isFeatured?: boolean;
   onReschedule?: (consultation: Consultation) => void;
   onCancel?: (consultation: Consultation) => void;
   onJoin?: (consultation: Consultation) => void;
 };
 
-/** Tarjeta reutilizable de consulta (Consultas hoy; pensada para reusarse en Historial más adelante). */
+/** Reusable consultation card (Consultas today; meant to be reused in Historial later). */
 export function ConsultationCard({
   consultation,
   isFeatured = false,
@@ -104,7 +104,7 @@ export function ConsultationCard({
           >
             Reagendar
           </button>
-          {/* Cancelar es una acción secundaria, no un error — nunca rojo (ver "Cerrar sesión"). */}
+          {/* Cancel is a secondary action, not an error — never red (see "Cerrar sesión"). */}
           <button
             type="button"
             onClick={() => onCancel?.(consultation)}

@@ -22,10 +22,10 @@ function normalizeMonth(word: string): string {
 }
 
 /**
- * Parsea las fechas en texto libre del dataset mock, que vienen en dos formatos
- * distintos: "12 sep 2024" (historial/recetas) y "Martes 17 de septiembre"
- * (consultas próximas, sin año — se asume `fallbackYear`, el año congelado del mock).
- * Devuelve null si el formato no matchea ninguno de los dos.
+ * Parses the free-text dates of the mock dataset, which come in two
+ * different formats: "12 sep 2024" (history/prescriptions) and "Martes 17 de septiembre"
+ * (upcoming consultations, no year — `fallbackYear` is assumed, the mock's frozen year).
+ * Returns null if the format matches neither.
  */
 export function parseMockDate(input: string, fallbackYear = 2024): Date | null {
   const withYear = input.match(/(\d{1,2})\s+([a-záéíóúñ]+)\.?\s+(\d{4})/i);

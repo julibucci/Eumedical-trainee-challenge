@@ -1,6 +1,6 @@
 export interface Testimonial {
-  /** El texto y la ubicación viven en src/i18n/content.ts, keyed por este id. */
+  /** The text and location live in src/i18n/content.ts, keyed by this id. */
   id: string;
-  /** Puntuación de 1 a 5. */
+  /** Score from 1 to 5. */
   rating: number;
 }

@@ -1,6 +1,6 @@
 import type { Consultation } from "../types/consultation";
 
-/** Misma fecha congelada que patientData.ts (16/09/2024) para que "en X días" sea coherente. */
+/** Same frozen date as patientData.ts (September 16, 2024) so that "en X días" is coherent. */
 export const consultations: Consultation[] = [
   {
     id: "cons-1",

@@ -23,8 +23,8 @@ import type { Consultation, ConsultationStatus } from "../../types/consultation"
 import type { PrescriptionStatus } from "../../types/prescription";
 
 const ICON_STROKE_WIDTH = 1.75;
-// Mismo "hoy" congelado que el resto del mock (ver mocks/patientData.ts) — si usáramos
-// la fecha real, el calendario abriría vacío a años de distancia de todos los eventos.
+// Same frozen "today" as the rest of the mock (see mocks/patientData.ts) — if we used
+// the real date, the calendar would open empty, years away from all the events.
 const MOCK_TODAY = new Date(2024, 8, 16);
 const WEEKDAY_LABELS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
 
@@ -51,9 +51,9 @@ const PRESCRIPTION_STATUS_LABEL: Record<PrescriptionStatus, string> = {
   vencida: "Vencida",
 };
 
-// Cada evento se ve directo dentro del cuadrado del día como una "chip" de
-// color (mismo criterio que ya usábamos: teal = al día, gold = atención pronto,
-// navy = completado/neutral, rojo = cancelado o vencido — excepción real).
+// Each event is shown directly inside the day square as a color "chip"
+// (same criteria we already used: teal = on track, gold = attention soon,
+// navy = completed/neutral, red = cancelled or expired — a real exception).
 const EVENT_CHIP: Record<ConsultationStatus | PrescriptionStatus, string> = {
   confirmada: "bg-brand-medium-aqua/25 text-brand-dark-blue",
   pendiente: "bg-brand-medium-aqua/25 text-brand-dark-blue",
@@ -103,7 +103,7 @@ function buildEvents(): CalendarEvent[] {
   return events;
 }
 
-/** Calendario mensual con las consultas y vencimientos de recetas del paciente. */
+/** Monthly calendar with the patient's consultations and prescription expirations. */
 export default function CalendarioPage() {
   const [visibleMonth, setVisibleMonth] = useState(MOCK_TODAY);
   const [selectedDate, setSelectedDate] = useState(MOCK_TODAY);
@@ -166,8 +166,8 @@ export default function CalendarioPage() {
         </button>
       </div>
 
-      {/* Calendario a ancho completo: sin panel lateral fijo — el detalle del día
-          se muestra en un pop-up (ver más abajo) al hacer click. */}
+      {/* Full-width calendar: no fixed side panel — the day's detail
+          is shown in a pop-up (see below) on click. */}
       <section className="flex-1 rounded-2xl bg-white p-5">
         <div className="flex items-center justify-between">
           <p className="font-heading text-lg font-bold text-brand-dark-blue">
@@ -271,7 +271,7 @@ export default function CalendarioPage() {
         </div>
       </section>
 
-      {/* Pop-up con el detalle del día elegido */}
+      {/* Pop-up with the detail of the chosen day */}
       <Dialog open={isDayModalOpen} onClose={() => setIsDayModalOpen(false)} className="relative z-50">
         <DialogBackdrop className="fixed inset-0 bg-black/60" />
         <div className="fixed inset-0 flex items-center justify-center p-4">

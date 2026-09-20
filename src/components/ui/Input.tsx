@@ -4,7 +4,7 @@ import { FieldError } from "./FieldError";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
-  /** Elemento adicional en la misma fila que el label (p. ej. un link "Olvidé mi contraseña"). */
+  /** Additional element on the same row as the label (e.g. a "Olvidé mi contraseña" link). */
   labelExtra?: ReactNode;
   error?: string;
 };

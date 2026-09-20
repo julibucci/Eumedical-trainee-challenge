@@ -9,7 +9,7 @@ function scrollToExtendedServices() {
   document.getElementById("servicios-extendidos")?.scrollIntoView({ behavior: "smooth" });
 }
 
-/** Recorrido horizontal resumen de los servicios (overview): tarjeta redondeada con línea conectora en degradé + 5 pasos numerados, hover con zoom, y acceso directo al catálogo completo de abajo. */
+/** Horizontal overview journey of the services: rounded card with a gradient connector line + 5 numbered steps, zoom hover, and a direct link to the full catalog below. */
 export function ServicesJourney() {
   const language = useLanguageStore((state) => state.language);
   const t = content[language].servicesJourney;

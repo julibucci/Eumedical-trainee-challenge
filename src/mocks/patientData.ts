@@ -1,8 +1,8 @@
 import type { ActivityEvent } from "../types/activity";
 
-/** Escenario mockeado, congelado en una fecha fija (16/09/2024) para que las
- * cuentas regresivas ("vence en 6 días", "próxima consulta") sean coherentes
- * entre sí en vez de compararse contra la fecha real de hoy. */
+/** Mocked scenario, frozen at a fixed date (September 16, 2024) so that the
+ * countdowns ("vence en 6 días", "próxima consulta") are consistent
+ * with each other instead of being compared against today's real date. */
 export const currentPatient = {
   firstName: "María",
   fullName: "María García",

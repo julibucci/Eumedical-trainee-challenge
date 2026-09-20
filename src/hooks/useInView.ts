@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-/** Detecta cuándo un elemento entra en el viewport, una sola vez (queda `true` para siempre). */
+/** Detects when an element enters the viewport, only once (stays `true` forever). */
 export function useInView<T extends Element>(threshold = 0.35) {
   const ref = useRef<T | null>(null);
   const [isInView, setIsInView] = useState(false);

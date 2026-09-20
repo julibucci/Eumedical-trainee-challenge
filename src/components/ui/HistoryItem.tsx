@@ -10,7 +10,7 @@ type HistoryItemProps = {
   consultation: Consultation;
 };
 
-/** Fila expandible (acordeón) de una consulta pasada, completada o cancelada. */
+/** Expandable row (accordion) of a past, completed or cancelled consultation. */
 export function HistoryItem({ consultation }: HistoryItemProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const contentId = useId();

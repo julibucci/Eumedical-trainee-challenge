@@ -32,7 +32,7 @@ type NotificationsDropdownProps = {
   onMarkAllAsRead: () => void;
 };
 
-/** Dropdown de la campana de notificaciones */
+/** Notifications bell dropdown */
 export function NotificationsDropdown({ notifications, unreadCount, onMarkAsRead, onMarkAllAsRead }: NotificationsDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -64,7 +64,7 @@ export function NotificationsDropdown({ notifications, unreadCount, onMarkAsRead
     if (notification.href) navigate(notification.href);
   }
 
-  /* Ver mas notificaciones --> Lleva a mock */
+  /* View more notifications --> Leads to mock */
   function handleViewAll() {
     setIsOpen(false);
     toast("Vista completa de notificaciones (próximamente)");

@@ -5,17 +5,12 @@ import {
 } from "../../assets/eumedical-cross";
 
 type EumedicalCrossProps = {
-  /** Ancho y alto en px (el símbolo es cuadrado). */
   size?: number;
-  /** El Brand Book fija el naranja de marca; solo cambiar para versiones monocromáticas. */
   color?: string;
   className?: string;
 };
 
-/**
- * Símbolo suelto de marca: NO es un ícono de librería. Es un asset propio con
- * brazos gruesos y extremos en semicírculo perfecto — ver src/assets/eumedical-cross.ts.
- */
+
 export function EumedicalCross({ size = 24, color = EUMEDICAL_ORANGE, className = "" }: EumedicalCrossProps) {
   return (
     <svg

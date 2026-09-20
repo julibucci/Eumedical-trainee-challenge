@@ -1,11 +1,11 @@
 type ToggleProps = {
   checked: boolean;
   onChange: (checked: boolean) => void;
-  /** Descripción accesible (el texto visible lo arma el consumidor al lado del toggle). */
+  /** Accessible description (the visible text is built by the consumer next to the toggle). */
   label: string;
 };
 
-/** Interruptor on/off reutilizable (preferencias de notificaciones, etc.). */
+/** Reusable on/off switch (notification preferences, etc.). */
 export function Toggle({ checked, onChange, label }: ToggleProps) {
   return (
     <button

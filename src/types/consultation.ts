@@ -7,11 +7,11 @@ export interface Consultation {
   doctor: string;
   specialty: MedicalSpecialty;
   status: ConsultationStatus;
-  /** Ya formateada para mostrar, ej. "Martes 17 de septiembre". */
+  /** Already formatted for display, e.g. "Martes 17 de septiembre". */
   date: string;
-  /** Ej. "10:30 hs". */
+  /** E.g. "10:30 hs". */
   time: string;
   modality: string;
-  /** Días hasta la consulta (determina la destacada en Consultas). Sin uso en el historial: 0. */
+  /** Days until the consultation (determines the highlighted one in Consultas). Unused in history: 0. */
   daysUntil: number;
 }

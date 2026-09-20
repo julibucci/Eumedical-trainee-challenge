@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 /**
- * Devuelve el id de la sección actualmente "activa": la que cruza una franja angosta cerca del
- * centro del viewport (truco estándar de scroll-spy vía rootMargin negativo, no hace falta medir
- * scrollTop a mano).
+ * Returns the id of the currently "active" section: the one crossing a narrow band near the
+ * center of the viewport (standard scroll-spy trick via a negative rootMargin, no need to measure
+ * scrollTop by hand).
  */
 export function useActiveSection(sectionIds: string[]) {
   const [activeId, setActiveId] = useState<string | null>(null);

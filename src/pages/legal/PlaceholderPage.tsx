@@ -5,7 +5,7 @@ type PlaceholderPageProps = {
   title: string;
 };
 
-/** Ruta placeholder para textos legales aún no redactados (términos, privacidad). */
+/** Placeholder route for legal texts not yet written (terms, privacy). */
 export function PlaceholderPage({ title }: PlaceholderPageProps) {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-white px-6 text-center">
