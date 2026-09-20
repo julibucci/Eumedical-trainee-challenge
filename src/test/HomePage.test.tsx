@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import HomePage from "./HomePage";
+import HomePage from "../pages/app/HomePage";
 
 function RecetasStub() {
   return <p>Recetas médicas (stub)</p>;

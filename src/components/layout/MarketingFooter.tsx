@@ -3,17 +3,17 @@ import { EumedicalLogo } from "../ui/EumedicalLogo";
 import { content } from "../../i18n/content";
 import { useLanguageStore } from "../../store/languageStore";
 
-/** Placeholder: no hay un flujo de postulación real en el alcance de esta prueba — ver README. */
+
 const JOIN_US_HREF = "#contacto";
 
-/** Footer de la landing de marketing: logo + dos columnas de links en vertical (navegación / legal), fondo azul marca. */
+/** Footer */
 export function MarketingFooter() {
   const language = useLanguageStore((state) => state.language);
   const t = content[language].footer;
 
   return (
     <footer className="bg-brand-dark-blue px-6 py-14">
-      <div className="mx-auto grid max-w-6xl gap-10 sm:grid-cols-[1.3fr_1fr_1fr]">
+      <div className="mx-auto grid max-w-[1400px] gap-10 sm:grid-cols-[1.6fr_1fr_1fr]">
         <div>
           <EumedicalLogo theme="dark" size={22} />
         </div>
@@ -53,7 +53,7 @@ export function MarketingFooter() {
         </div>
       </div>
 
-      <div className="mx-auto mt-10 max-w-6xl border-t border-white/10 pt-6">
+      <div className="mx-auto mt-10 max-w-[1400px] border-t border-white/10 pt-6">
         <p className="text-xs text-white/50">© 2024 eumedical · Atención internacional</p>
       </div>
     </footer>

@@ -24,8 +24,7 @@ type Field = keyof ContactFormData;
 
 const EMPTY_FORM: ContactFormData = { nombre: "", apellido: "", email: "", mensaje: "", aceptaTerminos: false };
 
-/** Placeholder: no hay una URL real de LinkedIn de la empresa provista para esta prueba — ver README. */
-const LINKEDIN_URL: string | undefined = undefined;
+const LINKEDIN_URL = "https://www.linkedin.com/company/eumedical/?originalSubdomain=es";
 
 /** Contacto asimétrico: info a un lado, formulario como card flotante del otro, sobre un contenedor gris claro con la cruz de marca decorativa. */
 export function ContactSection() {
@@ -82,7 +81,7 @@ export function ContactSection() {
 
   return (
     <section id="contacto" className="scroll-mt-24 bg-white px-6 py-20 sm:py-24">
-      <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2.5rem] bg-brand-grey p-8 sm:p-12">
+      <div className="relative mx-auto max-w-[1400px] overflow-hidden rounded-[2.5rem] bg-brand-grey p-8 sm:p-12">
         <EumedicalCross
           size={360}
           color="#e79f1a"
@@ -141,24 +140,15 @@ export function ContactSection() {
               </ul>
 
               <div className="mt-5 border-t border-gray-100 pt-5">
-                {LINKEDIN_URL ? (
-                  <a
-                    href={LINKEDIN_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={t.linkedinAriaReal}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-dark-blue text-white transition-colors hover:bg-brand-dark-blue/90"
-                  >
-                    <Linkedin aria-hidden="true" size={17} strokeWidth={1.75} />
-                  </a>
-                ) : (
-                  <span
-                    aria-label={t.linkedinAriaPlaceholder}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-dark-blue text-white"
-                  >
-                    <Linkedin aria-hidden="true" size={17} strokeWidth={1.75} />
-                  </span>
-                )}
+                <a
+                  href={LINKEDIN_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={t.linkedinAriaReal}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-dark-blue text-white transition-colors hover:bg-brand-dark-blue/90"
+                >
+                  <Linkedin aria-hidden="true" size={17} strokeWidth={1.75} />
+                </a>
               </div>
             </div>
 

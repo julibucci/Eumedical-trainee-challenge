@@ -35,7 +35,7 @@ const LANGUAGE_OPTIONS: { code: Language; label: string; Flag: () => ReactNode }
   { code: "es", label: "Español", Flag: FlagES },
 ];
 
-/** Selector con dropdown: rectángulo blanco 207x48, bandera + nombre + chevron; la opción activa se resalta en gris claro. */
+/** Selector con dropdown */
 function LanguageSwitcher() {
   const [isOpen, setIsOpen] = useState(false);
   const language = useLanguageStore((state) => state.language);
@@ -122,8 +122,7 @@ export function MarketingHeader() {
   const sectionIds = useMemo(() => [...new Set(t.nav.map((link) => link.href.slice(1)))], [t.nav]);
   const activeSectionId = useActiveSection(sectionIds);
 
-  // Dos ítems del nav pueden apuntar al mismo href (ej. "Cobertura" y "Sobre nosotros" → #cobertura):
-  // solo se resalta el primero de ellos, para que nunca se marquen dos a la vez.
+
   function isLinkActive(href: string, index: number) {
     if (activeSectionId === null || href !== `#${activeSectionId}`) return false;
     return t.nav.findIndex((link) => link.href === href) === index;
@@ -131,8 +130,8 @@ export function MarketingHeader() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-gray-100 bg-white/95 px-6 py-4 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
-        <EumedicalLogo size={44} className="-ml-20" />
+      <div className="mx-auto flex max-w-[1560px] items-center justify-between gap-4">
+        <EumedicalLogo size={44} className="lg:-ml-20" />
 
         <nav aria-label="Navegación principal" className="hidden flex-1 items-center justify-center gap-2 text-base font-heading font-bold lg:flex">
           {t.nav.map((link, index) => (
@@ -171,7 +170,7 @@ export function MarketingHeader() {
       </div>
 
       {isMobileNavOpen && (
-        <div className="mx-auto mt-4 flex max-w-7xl flex-col gap-4 border-t border-gray-100 pt-4 lg:hidden">
+        <div className="mx-auto mt-4 flex max-w-[1560px] flex-col gap-4 border-t border-gray-100 pt-4 lg:hidden">
           <nav aria-label="Navegación principal" className="flex flex-col items-start gap-2 text-base font-heading font-bold">
             {t.nav.map((link, index) => (
               <a

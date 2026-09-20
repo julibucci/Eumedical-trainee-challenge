@@ -35,7 +35,7 @@ export function TrustMetrics() {
 
   return (
     <section className="bg-white px-6 pb-8 pt-20 sm:pb-10 sm:pt-24">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-[1400px]">
         <h2 className="text-center font-display text-4xl font-bold text-brand-dark-blue sm:text-5xl">{t.title}</h2>
 
         <div ref={ref} className="mt-10 rounded-3xl bg-brand-grey p-10 sm:p-14">

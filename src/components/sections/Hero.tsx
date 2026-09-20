@@ -26,7 +26,7 @@ export function Hero() {
         className="pointer-events-none absolute -right-28 -top-32 rotate-[18deg] opacity-[0.07] sm:-right-16 sm:-top-24"
       />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
+      <div className="relative mx-auto grid max-w-[1400px] items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-orange">{t.eyebrow}</p>
 
@@ -51,7 +51,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="relative mx-auto mt-16 grid max-w-6xl gap-4 sm:grid-cols-3 sm:items-stretch">
+      <div className="relative mx-auto mt-16 grid max-w-[1400px] gap-4 sm:grid-cols-3 sm:items-stretch">
         {stats.map((stat) => (
           <div
             key={stat.id}
